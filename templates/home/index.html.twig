@@ -1,3 +1,5 @@
+{# home page : This page shows the last 3 properties #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil - Immo78{% endblock %}
@@ -14,5 +16,26 @@
         </div>
     </div>
 
+    <div class="container text-center">
+        <h2>Les derniers biens publiés</h2>
+        <div class="row">
+            {% for property in properties %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {# slug and id pass in param #}
+                            <a href="{{ path('property.show', {slug: property.slug, id: property.id }) }}">{{
+                                property.title }}</a>
+                        </h5>
+                        <p class="card-text">{{ property.city }} ({{ property.postalCode}})</p>
+                        <p>{{ property.formattedPrice }} €</p>
+                        <p>{{ property.Slug }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

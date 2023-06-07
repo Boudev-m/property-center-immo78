@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
-use DateTime;
+use Cocur\Slugify\Slugify;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Property
 {
     const HEAT = [
-        0 => 'Electrique',
-        1 => 'Gaz'
+        1 => 'Electrique',
+        2 => 'Gaz'
     ];
 
     #[ORM\Id]
@@ -54,15 +55,15 @@ class Property
     private ?string $postal_code = null;
 
     #[ORM\Column(options: ["default" => false])]
-    private ?bool $sold = null;
+    private ?bool $sold = false;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    // Date = at the creation of property
+    // Date = at the creation of instance
     public function __construct()
     {
-        $this->created_at = new DateTime();
+        $this->created_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -80,6 +81,13 @@ class Property
         $this->title = $title;
 
         return $this;
+    }
+
+    // Slug = formatted title using for Url
+    public function getSlug(): ?string
+    {
+        $slugify = (new Slugify());
+        return $slugify->slugify($this->title);
     }
 
     public function getDescription(): ?string
@@ -147,6 +155,12 @@ class Property
         return $this->price;
     }
 
+    public function getFormattedPrice(): string
+    {
+        return number_format($this->price, 0, '', ' ');
+    }
+
+
     public function setPrice(int $price): self
     {
         $this->price = $price;
@@ -157,6 +171,11 @@ class Property
     public function getHeat(): ?int
     {
         return $this->heat;
+    }
+
+    public function getHeatType(): ?string
+    {
+        return self::HEAT[$this->heat];
     }
 
     public function setHeat(int $heat): self
