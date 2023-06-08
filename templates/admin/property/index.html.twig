@@ -31,6 +31,8 @@
                     <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}"
                         class="d-inline-block">
                         <input type="hidden" name="_method" value="DELETE"> {# _method is known by symfony #}
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}"> {# create
+                        token #}
                         <button class="btn btn-danger">Supprimer</button>
                     </form>
                 </td>

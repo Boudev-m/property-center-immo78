@@ -7,6 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -102,13 +103,16 @@ class AdminController extends AbstractController
     // Delete one property
     /**
      * @param Property $property
+     * @param Request $request
      */
     #[Route('/admin/biens/{id}/supprimer', name: 'admin.property.delete', methods: ['POST'])]
-    public function delete(Property $property): Response
+    public function delete(Property $property, Request $request): RedirectResponse
     {
-        dd('supprimé');
-        $this->em->remove($property);
-        $this->em->flush();
+        // Check if token in delete form is valid
+        if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
+            $this->em->remove($property);
+            $this->em->flush();
+        }
         return $this->redirectToRoute('admin.property.index');
     }
 }
