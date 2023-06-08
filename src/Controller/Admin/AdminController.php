@@ -92,19 +92,21 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/property/edit.html.twig', [
-            'propoerty' => $property,
+            'property' => $property,
             'form' => $form->createView() // create view for the template
         ]);
     }
+
+
 
     // Delete one property
     /**
      * @param Property $property
      */
-    #[Route('/admin/biens/{id}/delete', name: 'admin.property.delete', methods: 'POST')]
+    #[Route('/admin/biens/{id}/supprimer', name: 'admin.property.delete', methods: ['POST'])]
     public function delete(Property $property): Response
     {
-        dd($property, 'supprimé');
+        dd('supprimé');
         $this->em->remove($property);
         $this->em->flush();
         return $this->redirectToRoute('admin.property.index');
