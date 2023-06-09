@@ -5,12 +5,17 @@ namespace App\Entity;
 use App\Repository\PropertyRepository;
 use Cocur\Slugify\Slugify;
 use DateTimeImmutable;
+use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
+#[UniqueEntity('title')]    // unique for title field
 class Property
 {
+
     const HEAT = [
         1 => 'Electrique',
         2 => 'Gaz'
@@ -22,48 +27,70 @@ class Property
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Length(min: 5, max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotNull]
+    #[Assert\Length(min: 3)]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
+    #[Assert\Range(
+        min: 10,
+        max: 200,
+        notInRangeMessage: 'La surface doit être situé entre {{ min }}m² et {{ max }}m².',
+    )]
     private ?int $surface = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?int $rooms = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?int $bedrooms = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?int $floor = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?int $price = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
+    #[Assert\Choice([1, 2])]
     private ?int $heat = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\Regex('/^[0-9]{5}$/')]
     private ?string $postal_code = null;
 
     #[ORM\Column(options: ["default" => false])]
     private ?bool $sold = false;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?\DateTimeImmutable $created_at = null;
 
     // Date = at the creation of instance
     public function __construct()
     {
-        $this->created_at = new DateTimeImmutable();
+        $this->created_at = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
     }
 
     public function getId(): ?int

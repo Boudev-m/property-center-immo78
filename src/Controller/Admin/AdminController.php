@@ -63,6 +63,7 @@ class AdminController extends AbstractController
             // the property entity must be tracked by EntityManager
             $this->em->persist($property);
             $this->em->flush();
+            $this->addFlash('success', 'Bien ajouté avec succès.');
             return $this->redirectToRoute('admin.property.index');
         }
 
@@ -89,6 +90,7 @@ class AdminController extends AbstractController
         // check if form is submitted and valid, so save in DB and redirect to index
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
+            $this->addFlash('success', 'Bien edité avec succès.');
             return $this->redirectToRoute('admin.property.index');
         }
 
@@ -112,6 +114,7 @@ class AdminController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
             $this->em->remove($property);
             $this->em->flush();
+            $this->addFlash('success', 'Bien supprimé avec succès.');
         }
         return $this->redirectToRoute('admin.property.index');
     }
