@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -41,13 +43,27 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Property[] Returns an array of unsold properties
+     * @return Property[] Returns an array of unsold properties (with search filter)
      */
-    public function findAllVisible(): array
+    public function findAllVisible(PropertySearch $search): Query
     {
-        return $this->findVisibleQuery()
-            ->getQuery()
-            ->getResult();
+        $query = $this->findVisibleQuery();
+
+        // if min surface entered
+        if ($search->getMinSurface()) {
+            $query = $query
+                ->andWhere('p.surface >= :minSurface')  // andWhere for combinate min surface and max price queries
+                ->setParameter('minSurface', $search->getMinSurface());
+        }
+
+        // if max price entered
+        if ($search->getMaxPrice()) {
+            $query = $query
+                ->andWhere('p.price <= :maxPrice')  // andWhere for combinate min surface and max price queries
+                ->setParameter('maxPrice', $search->getMaxPrice());
+        }
+
+        return $query->getQuery();
     }
 
     /**

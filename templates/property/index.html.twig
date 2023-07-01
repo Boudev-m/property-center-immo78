@@ -9,6 +9,24 @@
 <div class="container">
     <h1>Nos biens disponibles</h1>
     <div class="row">
+        <div>
+            {{ form_start(form) }}
+            <div class="form row">
+                <div class="col">
+                    {{ form_row(form.minSurface) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.maxPrice) }}
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="count">
+            Résultat de la recherche : {{ properties.getTotalItemCount }} biens trouvés
+        </div>
         {% for property in properties %}
         <div class="col-3">
             <div class="card">
@@ -18,12 +36,19 @@
                             property.title
                             }}</a>
                     </h5>
-                    <p class="card-text">{{ property.city }} ({{ property.postalCode}})</p>
+                    <p class="card-text">
+                        {{property.surface}} m² - {{ property.city }} ({{ property.postalCode}})
+                    </p>
                     <p>{{ property.formattedPrice }} €</p>
                 </div>
             </div>
         </div>
         {% endfor %}
+        {# display navigation #}
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
+        </div>
     </div>
 </div>
+
 {% endblock %}
