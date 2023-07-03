@@ -66,12 +66,12 @@ class PropertyRepository extends ServiceEntityRepository
         // if options selected
         // Problem to solve : getting property even if selected one or more options
         if ($search->getOptions()->count() > 0) {
-            // $k = 0;
+            $k = 0;
             foreach ($search->getOptions() as $option) {
-                // $k++;
+                $k++;
                 $query = $query
-                    ->andWhere(':options MEMBER OF p.options')  // andWhere is used for combinate queries
-                    ->setParameter('options', $option);
+                    ->andWhere(":option$k MEMBER OF p.options")  // andWhere is used for combinate queries
+                    ->setParameter("option$k", $option);
             }
         }
 
