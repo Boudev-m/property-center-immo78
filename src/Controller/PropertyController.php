@@ -60,8 +60,8 @@ class PropertyController extends AbstractController
      * @param string $slug
      * @return Response
      */
-    #[Route('/biens/{slug}{id}', name: 'property.show', requirements: ["slug" => "[a-z0-9\-]*"])]
-    public function show(Property $property, $slug, $id): Response
+    #[Route('/biens/{id}-{slug}', name: 'property.show', requirements: ["slug" => "[a-z0-9\-]*"])]
+    public function show($id, $slug, Property $property): Response
     {
         // if slug is different, so redirect with 301
         if ($property->getSlug() !== $slug) {
@@ -75,6 +75,8 @@ class PropertyController extends AbstractController
             );
         }
 
+        // get options of property
+        //
         // not need find method here because link between id in param and Property
         // $property = $this->repository->find($id);
         return $this->render('property/show.html.twig', [

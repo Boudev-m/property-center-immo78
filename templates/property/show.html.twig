@@ -47,6 +47,14 @@
                     <td>Chauffage</td>
                     <td>{{ property.heatType }}</td>
                 </tr>
+                <tr>
+                    <td>Options</td>
+                    <td>
+                        {% for option in property.options %}
+                        {{ option.name }},
+                        {% endfor %}
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="col-md-5">

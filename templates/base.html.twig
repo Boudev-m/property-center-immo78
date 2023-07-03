@@ -38,7 +38,15 @@
                     </li>
                     {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+                        <a class="nav-link text-danger" href="{{ path('logout') }}">Se déconnecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-bold" href="{{ path('admin.property.index') }}">Gérer les
+                            biens</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-bold" href="{{ path('admin.option.index') }}">Gérer les
+                            options</a>
                     </li>
                     {% else %}
                     <li class="nav-item">

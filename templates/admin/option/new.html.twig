@@ -1,0 +1,15 @@
+{# admin option new page : This page is used to create a new option (back office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les biens - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1>Ajouter une option</h1>
+
+    {{ include('admin/option/_form.html.twig', {form: form, button: 'Créer'}) }}
+
+</div>
+{% endblock %}

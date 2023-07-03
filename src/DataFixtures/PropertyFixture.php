@@ -17,7 +17,7 @@ class PropertyFixture extends Fixture
             $property
                 ->setTitle($faker->words(3, true))
                 ->setDescription($faker->sentence())
-                ->setSurface($faker->numberBetween(20, 350))
+                ->setSurface($faker->numberBetween(10, 200))
                 ->setRooms($faker->numberBetween(2, 10))
                 ->setBedrooms($faker->numberBetween(1, 9))
                 ->setFloor($faker->numberBetween(0, 15))
@@ -25,7 +25,7 @@ class PropertyFixture extends Fixture
                 ->setHeat($faker->numberBetween(1, count(Property::HEAT)))
                 ->setCity($faker->city())
                 ->setAddress($faker->address())
-                ->setPostalCode($faker->postcode())
+                ->setPostalCode(str_replace(' ', '', $faker->postcode()))
                 ->setSold(false);
             $manager->persist($property);
         }

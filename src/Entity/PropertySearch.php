@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PropertySearch
@@ -20,6 +21,16 @@ class PropertySearch
         notInRangeMessage: 'La surface doit être situé entre {{ min }}m² et {{ max }}m².',
     )]
     private $minSurface;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $options;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
 
     public function getMaxPrice(): ?int
     {
@@ -41,5 +52,15 @@ class PropertySearch
     {
         $this->minSurface = $minSurface;
         return $this;
+    }
+
+    public function getOptions(): ArrayCollection
+    {
+        return $this->options;
+    }
+
+    public function setOptions(ArrayCollection $options): void
+    {
+        $this->options = $options;
     }
 }

@@ -63,6 +63,18 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter('maxPrice', $search->getMaxPrice());
         }
 
+        // if options selected
+        // Problem to solve : getting property even if selected one or more options
+        if ($search->getOptions()->count() > 0) {
+            // $k = 0;
+            foreach ($search->getOptions() as $option) {
+                // $k++;
+                $query = $query
+                    ->andWhere(':options MEMBER OF p.options')  // andWhere is used for combinate queries
+                    ->setParameter('options', $option);
+            }
+        }
+
         return $query->getQuery();
     }
 
