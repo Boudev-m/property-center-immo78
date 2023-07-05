@@ -12,9 +12,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 #[UniqueEntity('title')]    // unique for title field
+#[Vich\Uploadable]
 class Property
 {
 
@@ -92,9 +96,20 @@ class Property
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'properties')]
     private Collection $options;
 
-    // Date = at the creation of instance
+    // NOTE: This is not a mapped field of entity metadata, just a simple property.
+    #[Vich\UploadableField(mapping: 'property_image', fileNameProperty: 'imageName')]
+    #[Assert\Image(mimeTypes: ['image/jpeg'], mimeTypesMessage: 'Veuillez séléctionner un fichier JPEG de moins de 2mo. ')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
+
     public function __construct()
     {
+        // Date = at the creation of instance
         $this->created_at = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
         $this->options = new ArrayCollection();
     }
@@ -301,6 +316,72 @@ class Property
         if ($this->options->removeElement($option)) {
             $option->removeProperty($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return ?File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param ?File $imageFile
+     *
+     * @return self
+     */
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        // if file uploaded
+        if ($this->imageFile instanceof UploadedFile) {
+            // update updated_at
+            $this->updated_at = new \DateTimeImmutable('now');
+        }
+    }
+
+    /**
+     * Get the value of imageName
+     *
+     * @return ?string
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     *
+     * @param ?string $imageName
+     *
+     * @return self
+     */
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -9,7 +9,13 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-7">
-
+            {% if property.imageName %}
+            <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('property_medium') }}" alt="..."
+                width="100%" height="auto">
+            {% else %}
+            <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_medium') }}" class="card-img-top"
+                alt="..." width="100%" height="auto">
+            {% endif %}
         </div>
         <div class="col-md-5">
             <h1>{{ property.title }}</h1>
@@ -20,7 +26,7 @@
     </div>
 
     <p>
-        {{ property.description | nl2br }}
+        Description : {{ property.description | nl2br }}
     </p>
 
     <div class="row">
@@ -47,18 +53,19 @@
                     <td>Chauffage</td>
                     <td>{{ property.heatType }}</td>
                 </tr>
-                <tr>
-                    <td>Options</td>
-                    <td>
-                        {% for option in property.options %}
-                        {{ option.name }},
-                        {% endfor %}
-                    </td>
-                </tr>
             </table>
         </div>
         <div class="col-md-5">
             <h2>Spécificités</h2>
+            <ul class="list-group">
+                {% if (property.options.count > 0) %}
+                {% for option in property.options %}
+                <li class="list-group-item">{{ option.name }}</li>
+                {% endfor %}
+                {% else %}
+                <li class="list-group-item">Aucune spécificité n'est liée à ce bien</li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>
