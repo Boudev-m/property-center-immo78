@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
+use App\Form\ContactType;
 use App\Form\PropertySearchType;
+use App\Notification\ContactNotification;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;     // for paginate the list of properties
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;     // for paginate the list of properties
 
 class PropertyController extends AbstractController
 {
@@ -54,14 +57,14 @@ class PropertyController extends AbstractController
 
 
     // Shows one property
-    // Utilisation des regex pour le param slug
+    // using regex for slug in param
     /**
      * @param Property $property
      * @param string $slug
      * @return Response
      */
     #[Route('/biens/{id}-{slug}', name: 'property.show', requirements: ["slug" => "[a-z0-9\-]*"])]
-    public function show($id, $slug, Property $property): Response
+    public function show($id, $slug, Property $property, Request $request, ContactNotification $notification): Response
     {
         // if slug is different, so redirect with 301
         if ($property->getSlug() !== $slug) {
@@ -75,13 +78,33 @@ class PropertyController extends AbstractController
             );
         }
 
-        // get options of property
-        //
+        // create contact form for the current property
+        $contact = new Contact;
+        $contact->setProperty($property);
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        // if contact form is submitted and valid
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Send mail
+            $notification->notify($contact);
+            $this->addFlash('success', 'Message envoyé.');
+            // return $this->redirectToRoute(
+            //     'property.show',
+            //     [
+            //         'id' => $property->getId(),
+            //         'slug' => $property->getSlug()
+            //     ]
+            // );
+        }
+
         // not need find method here because link between id in param and Property
         // $property = $this->repository->find($id);
         return $this->render('property/show.html.twig', [
             'property' => $property,
-            'current_menu' => 'properties'
+            'current_menu' => 'properties',
+            'contactForm' => $form->createView()
         ]);
     }
     // Voir les annotations S6

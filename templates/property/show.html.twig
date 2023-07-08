@@ -7,6 +7,12 @@
 {% block body %}
 
 <div class="container mt-4">
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success text-white">{{ message }}</div>
+    {% endfor %}
+    {% if not contactForm.vars.valid %}
+    <div class="alert alert-danger text-white">Veuillez remplir correctement le formulaire.</div>
+    {% endif %}
     <div class="row">
         <div class="col-md-7">
             {% if property.imageName %}
@@ -22,6 +28,22 @@
             <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
             <div class="text-primary fs-1 fw-bold">{{ property.formattedPrice }} €</div>
             <a href="#" class="btn btn-primary">Contacter l'agence</a>
+            <div id="contactForm" class="mt-4">
+                {{ form_start(contactForm) }}
+                <div class="row">
+                    <div class="col">{{ form_row(contactForm.firstName) }}</div>
+                    <div class="col">{{ form_row(contactForm.lastName) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form_row(contactForm.phone) }}</div>
+                    <div class="col">{{ form_row(contactForm.email) }}</div>
+                </div>
+                <div class="col">{{ form_rest(contactForm) }}</div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Envoyer</button>
+                </div>
+                {{ form_end(contactForm) }}
+            </div>
         </div>
     </div>
 

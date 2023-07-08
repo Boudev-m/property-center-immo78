@@ -1,0 +1,35 @@
+{# email template for contact from user #}
+{# note : set a complete layout for email templates #}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <p>{{ contact.message | nl2br }}</p>
+    <table>
+        <th>Coordonnées de l'expediteur :</th>
+        <tr>
+            <td>Nom :</td>
+            <td>{{ contact.lastName }}</td>
+        </tr>
+        <tr>
+            <td>Prénom :</td>
+            <td>{{ contact.firstName }}</td>
+        </tr>
+        <tr>
+            <td>Téléphone :</td>
+            <td>{{ contact.phone }}</td>
+        </tr>
+        <tr>
+            <td>Email :</td>
+            <td>{{ contact.email }}</td>
+        </tr>
+    </table>
+</body>
+
+</html>
