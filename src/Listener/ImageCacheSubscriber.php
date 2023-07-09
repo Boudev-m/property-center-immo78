@@ -48,14 +48,23 @@ class ImageCacheSubscriber implements EventSubscriber
         // if file uploaded
         // Issue : CacheManager doesn't work with pre update, I use unlink (bad practice)
         if ($entity->getImageFile() instanceof UploadedFile) {
-            // get old image name
-            $oldImageName = $args->getEntityChangeSet()['imageName'][0];
-            // get path of image in cache
-            $thumbImageCachePath = 'media' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'property_thumb' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'properties' . DIRECTORY_SEPARATOR . $oldImageName;
-            $mediumImageCachePath = 'media' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'property_medium' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'properties' . DIRECTORY_SEPARATOR . $oldImageName;
-            // delete the image in cache
-            unlink($thumbImageCachePath);
-            unlink($mediumImageCachePath);
+
+            // Doesn't work
+            // $this->cacheManager->remove($this->helper->asset($entity, 'imageFile'));
+
+            // Unlink method
+            if (key_exists('imageName', $args->getEntityChangeSet())) {
+                // get old image name
+                $oldImageName = $args->getEntityChangeSet()['imageName'][0];
+
+                // get path of image in cache
+                $thumbImageCachePath = 'media' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'property_thumb' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'properties' . DIRECTORY_SEPARATOR . $oldImageName;
+                $mediumImageCachePath = 'media' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'property_medium' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'properties' . DIRECTORY_SEPARATOR . $oldImageName;
+
+                // delete the image in cache
+                unlink($thumbImageCachePath);
+                unlink($mediumImageCachePath);
+            }
         }
     }
 
