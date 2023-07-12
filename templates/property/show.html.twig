@@ -15,9 +15,30 @@
     {% endif %}
     <div class="row">
         <div class="col-md-7">
-            {% if property.imageName %}
-            <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('property_medium') }}" alt="..."
-                width="100%" height="auto">
+            {# check if the property has at least one image #}
+            {% if property.firstPicture %}
+            {# display caroussel to show all images#}
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    {% for picture in property.pictures %}
+                    <div class="carousel-item {% if picture == property.firstPicture %}active{% endif %}">
+                        <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_medium') }}"
+                            alt="{{ picture.imageName }}" width="100%" height="auto">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
             {% else %}
             <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_medium') }}" class="card-img-top"
                 alt="..." width="100%" height="auto">

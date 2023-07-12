@@ -37,7 +37,7 @@ class OptionController extends AbstractController
             return $this->redirectToRoute('admin.option.index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/option/new.html.twig', [
+        return $this->render('admin/option/new.html.twig', [
             'option' => $option,
             'form' => $form,
         ]);
@@ -66,14 +66,14 @@ class OptionController extends AbstractController
             return $this->redirectToRoute('admin.option.index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/option/edit.html.twig', [
+        return $this->render('admin/option/edit.html.twig', [
             'option' => $option,
             'form' => $form,
         ]);
     }
 
     // Delete one option
-    #[Route('/options/{id}', name: 'admin.option.delete', methods: ['POST'])]
+    #[Route('/options/{id}', name: 'admin.option.delete', methods: ['GET'])]
     public function delete(Request $request, Option $option, OptionRepository $optionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $option->getId(), $request->request->get('_token'))) {

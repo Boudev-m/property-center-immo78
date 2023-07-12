@@ -12,13 +12,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 #[UniqueEntity('title')]    // unique for title field
-#[Vich\Uploadable]
 class Property
 {
 
@@ -96,22 +92,24 @@ class Property
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'properties')]
     private Collection $options;
 
-    // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    #[Vich\UploadableField(mapping: 'property_image', fileNameProperty: 'imageName')]
-    #[Assert\Image(mimeTypes: ['image/jpeg'], mimeTypesMessage: 'Veuillez séléctionner un fichier JPEG de moins de 2mo. ')]
-    private ?File $imageFile = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $imageName = null;
-
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
+
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Picture::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $pictures;
+
+    // All : constraints for each element of pictureFiles array
+    #[Assert\All([
+        new Assert\Image(mimeTypes: ['image/jpeg'], mimeTypesMessage: 'Veuillez séléctionner un/des fichier(s) au format JPEG de moins de 2mo. ')
+    ])]
+    private $pictureFiles;
 
     public function __construct()
     {
         // Date = at the creation of instance
         $this->created_at = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
         $this->options = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,59 +318,6 @@ class Property
         return $this;
     }
 
-    /**
-     * Get the value of imageFile
-     *
-     * @return ?File
-     */
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * Set the value of imageFile
-     *
-     * @param ?File $imageFile
-     *
-     * @return self
-     */
-    public function setImageFile(?File $imageFile): void
-    {
-        $this->imageFile = $imageFile;
-
-        // Only change the updated af if the file is really uploaded to avoid database updates.
-        // This is needed when the file should be set when loading the entity.
-        // if file uploaded
-        if ($this->imageFile instanceof UploadedFile) {
-            // update updated_at
-            $this->updated_at = new \DateTimeImmutable('now');
-        }
-    }
-
-    /**
-     * Get the value of imageName
-     *
-     * @return ?string
-     */
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    /**
-     * Set the value of imageName
-     *
-     * @param ?string $imageName
-     *
-     * @return self
-     */
-    public function setImageName(?string $imageName): self
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -383,6 +328,71 @@ class Property
     {
         $this->updated_at = $updated_at;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @return ?Picture
+     */
+    public function getFirstPicture(): ?Picture
+    {
+        if ($this->pictures->isEmpty()) {
+            return null;
+        }
+        return $this->pictures->get(0);
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getProperty() === $this) {
+                $picture->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pictureFiles
+     */
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+
+    /**
+     * Set the value of pictureFiles
+     */
+    public function setPictureFiles($pictureFiles): self
+    {
+        // For each picture file
+        foreach ($pictureFiles as $file) {
+            $picture = new Picture();
+            $picture->setImageFile($file);
+            $this->addPicture($picture);
+        }
+
+        $this->pictureFiles = $pictureFiles;
         return $this;
     }
 }

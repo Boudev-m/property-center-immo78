@@ -9,14 +9,42 @@
 <div class="container mt-4">
     <h1>Editer le bien</h1>
 
+    {# suppression dynamique d'images avec de l'ajax #}
+    <div class="row">
+        {% for picture in property.pictures %}
+        <div class="col" style="width: 100px; flex: auto; margin: 5px;">
+            <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_thumb') }}" width="100"
+                class="mx-1">
+            <a href="{{ path('admin.picture.delete', {id: picture.id}) }}" class="btn btn-danger" data-delete
+                data-token="{{ csrf_token('delete' ~ picture.id) }}">Supprimer</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- {# suppression classique d'images #}
+    <div class="row">
+        {% for picture in property.pictures %}
+        <div class="col" style="width: 100px; flex: auto; margin: 5px;">
+            <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_thumb') }}" width="100"
+                class="mx-1">
+            <form method="post" action="{{ path('admin.picture.delete', {id: picture.id}) }}" class="d-inline-block"
+                onsubmit="return confirm('Voulez-vous vraiment supprimer ce bien ?')">
+                <input type="hidden" name="_method" value="DELETE"> {# _method is known by symfony #}
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ picture.id) }}"> {# create
+                token #}
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div> -->
+
     {{ include('admin/property/_form.html.twig', {form: form, button: 'Editer'}) }}
 
 </div>
-{% endblock %}
 
-{% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $('select').select2();
-</script>
+</script> -->
+
 {% endblock %}
