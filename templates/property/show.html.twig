@@ -45,7 +45,7 @@
             {% endif %}
         </div>
         <div class="col-md-5">
-            <h1>{{ property.title }}</h1>
+            <h1 id="property-title">{{ property.title }}</h1>
             <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
             <div class="text-primary fs-1 fw-bold">{{ property.formattedPrice }} €</div>
             <a href="#" class="btn btn-primary" id="contactButton" {% if contactForm.vars.submitted %}
@@ -113,5 +113,9 @@
             </ul>
         </div>
     </div>
+
+    <div id="map" style="width: 100%; height: 600px;" data-lat="{{ property.latitude }}"
+        data-lng="{{ property.longitude }}" class="mb-4"></div>
+
 </div>
 {% endblock %}

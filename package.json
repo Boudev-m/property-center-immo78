@@ -19,5 +19,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@placekit/autocomplete-js": "^1.6.1",
+        "leaflet": "^1.9.4"
     }
 }

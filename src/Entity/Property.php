@@ -104,6 +104,13 @@ class Property
     ])]
     private $pictureFiles;
 
+    // scale: number of decimals, precision: number total of digits (ex: 34.5205)
+    #[ORM\Column(scale: 4, precision: 6)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(scale: 4, precision: 7)]
+    private ?float $longitude = null;
+
     public function __construct()
     {
         // Date = at the creation of instance
@@ -393,6 +400,30 @@ class Property
         }
 
         $this->pictureFiles = $pictureFiles;
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
         return $this;
     }
 }

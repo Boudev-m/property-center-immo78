@@ -16,6 +16,14 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        # install beberlei\doctrineextensions package and add these dql functions in order that doctrine knows them
+        dql:    
+            numeric_functions:
+                ASIN: DoctrineExtensions\Query\MySql\Asin
+                POWER: DoctrineExtensions\Query\MySql\Power
+                COS: DoctrineExtensions\Query\MySql\Cos
+                SIN: DoctrineExtensions\Query\MySql\Sin
+                Pi: DoctrineExtensions\Query\MySql\Pi
 
 when@test:
     doctrine:
