@@ -95,6 +95,8 @@ class Property
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
+    private ?Picture $picture = null;
+
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: Picture::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $pictures;
 
@@ -351,10 +353,16 @@ class Property
      */
     public function getFirstPicture(): ?Picture
     {
-        if ($this->pictures->isEmpty()) {
-            return null;
-        }
-        return $this->pictures->get(0);
+        return $this->picture;
+    }
+
+    /**
+     * @return ?Picture
+     */
+    public function setPicture(Picture $picture): self
+    {
+        $this->picture = $picture;
+        return $this;
     }
 
     public function addPicture(Picture $picture): self

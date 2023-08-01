@@ -2,12 +2,16 @@
 
 namespace App\Repository;
 
+use App\Entity\Picture;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Property>
@@ -19,9 +23,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PropertyRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Property::class);
+        $this->paginator = $paginator;
     }
 
     public function save(Property $entity, bool $flush = false): void
@@ -43,9 +51,9 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Property[] Returns an array of unsold properties (with search filter)
+     * @return PaginationInterface Returns a page of unsold properties (with search filter)
      */
-    public function findAllVisible(PropertySearch $search): Query
+    public function paginateAllVisible(PropertySearch $search, int $page): PaginationInterface
     {
         $query = $this->findVisibleQuery();
 
@@ -77,13 +85,21 @@ class PropertyRepository extends ServiceEntityRepository
 
         if ($search->getLatitude() && $search->getLongitude() && $search->getDistance()) {
             $query = $query
-                ->select('p')
                 ->andWhere('6371 * 2 * ASIN(SQRT(POWER(SIN((p.latitude - :lat) * pi()/180 / 2), 2) + COS(p.latitude * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((p.longitude - :long) * pi()/180 / 2), 2) )) <= :distance')
                 ->setParameter('lat', $search->getLatitude())
                 ->setParameter('long', $search->getLongitude())
                 ->setParameter('distance', $search->getDistance());
         }
-        return $query->getQuery();
+
+        // paginator
+        $properties = $this->paginator->paginate(
+            $query->getQuery(), /* query NOT result */
+            $page, /*page number*/
+            12 /*limit per page*/
+        );
+
+        $this->hydratePicture($properties);
+        return $properties;
     }
 
     /**
@@ -91,11 +107,39 @@ class PropertyRepository extends ServiceEntityRepository
      */
     public function findLatest(): array
     {
-        return $this->findVisibleQuery()
+        $properties = $this->findVisibleQuery()
             ->orderBy('p.created_at', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
+        $this->hydratePicture($properties);
+        return $properties;
+    }
+
+    // get picture for each property in param
+    public function hydratePicture($properties)
+    {
+        /*
+        * if properties has getItems() method (because type Pagination has getItems() method)
+        * in home page, properties = array.
+        * in property page, properties = pagination
+        */
+        // if ($properties && method_exists($properties, 'getItems')) {
+        // $properties = $properties->getItems();
+        // }
+        // method_exists() doesn't work if properties type is array, i used the following code : 
+        if ($properties && $properties instanceof SlidingPagination) {
+            $properties = $properties->getItems();
+        }
+
+        $pictures = $this->getEntityManager()->getRepository(Picture::class)->findForProperties($properties);
+
+        foreach ($properties as $property) {
+            // check if the property has an image
+            if ($pictures->containsKey($property->getId())) {
+                $property->setPicture($pictures->get($property->getId()));
+            }
+        }
     }
 
     /**
@@ -105,6 +149,10 @@ class PropertyRepository extends ServiceEntityRepository
     private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
+            /* ->select('p', 'pics', 'options')
+            ->leftJoin('p.pictures', 'pics')
+            ->leftJoin('p.options', 'options')
+            */
             ->andWhere('p.sold = false');
     }
 
