@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="container mt-4">
+<div class="container mt-4" style="max-width: 1020px;">
     {% for message in app.flashes('success') %}
     <div class="alert alert-success text-white">{{ message }}</div>
     {% endfor %}
@@ -14,6 +14,8 @@
     <div class="alert alert-danger text-white">Veuillez remplir correctement le formulaire.</div>
     {% endif %}
     <div class="row">
+
+        <!-- IMAGE BLOCK -->
         <div class="col-md-7">
             {# check if the property has at least one image #}
             {% if property.firstPicture %}
@@ -23,7 +25,7 @@
                     {% for picture in property.pictures %}
                     <div class="carousel-item {% if picture == property.firstPicture %}active{% endif %}">
                         <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_medium') }}"
-                            alt="{{ picture.imageName }}" width="100%" height="auto">
+                            alt="{{ picture.imageName }}">
                     </div>
                     {% endfor %}
                 </div>
@@ -41,14 +43,16 @@
 
             {% else %}
             <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_medium') }}" class="card-img-top"
-                alt="..." width="100%" height="auto">
+                alt="...">
             {% endif %}
         </div>
+
+        <!-- INFORMATION BLOCK -->
         <div class="col-md-5">
-            <h1 id="property-title">{{ property.title }}</h1>
-            <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
-            <div class="text-primary fs-1 fw-bold">{{ property.formattedPrice }} €</div>
-            <a href="#" class="btn btn-primary" id="contactButton" {% if contactForm.vars.submitted %}
+            <h2 id="property-title">{{ property.title }}</h2>
+            <h4>{{ property.rooms }} pièces - {{ property.surface }} m²</h4>
+            <h4 class="fw-bold">{{ property.formattedPrice }} €</h4>
+            <a href="#" class="btn btn-success" id="contactButton" {% if contactForm.vars.submitted %}
                 style="display: none;" {% endif %}>Contacter l'agence</a>
             <div id="contactForm" class="mt-4" {% if not contactForm.vars.submitted %} style="display: none;" {% endif
                 %}>
@@ -67,19 +71,29 @@
                 </div>
                 {{ form_end(contactForm) }}
             </div>
+            <p>
+                Description : {{ property.description | nl2br }}
+            </p>
+            <P>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit debitis quibusdam voluptates, quae
+                ipsam ex beatae neque perspiciatis odit accusamus asperiores obcaecati eligendi hic amet nulla esse qui
+                illo corrupti? Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio molestiae sit voluptas
+                recusandae voluptates possimus autem inventore ex quasi eos cum obcaecati architecto fugit eaque dolor
+                natus sapiente, quod harum!
+            </P>
         </div>
     </div>
 
-    <p>
-        Description : {{ property.description | nl2br }}
-    </p>
+
 
     <div class="row">
-        <div class="col-md-7">
-            <h2>Caractéristiques</h2>
-            <table class="table table-striped">
+
+        <!-- FEATURES BLOCK -->
+        <div class="col-md-6">
+            <h2>Caractéristiques du bien</h2>
+            <table class="table table-success table-bordered opacity-75">
                 <tr>
-                    <td>Surface habitable</td>
+                    <td>Surface habitable en m²</td>
                     <td>{{ property.surface }}</td>
                 </tr>
                 <tr>
@@ -95,25 +109,32 @@
                     <td>{{ property.floor }}</td>
                 </tr>
                 <tr>
-                    <td>Chauffage</td>
+                    <td>Type de chauffage</td>
                     <td>{{ property.heatType }}</td>
                 </tr>
             </table>
         </div>
-        <div class="col-md-5">
-            <h2>Spécificités</h2>
-            <ul class="list-group">
+
+        <!-- OPTIONS BLOCK -->
+        <div class="col-md-6">
+            <h2>Équipement(s)</h2>
+            <table class="table table-success table-bordered opacity-75">
                 {% if (property.options.count > 0) %}
                 {% for option in property.options %}
-                <li class="list-group-item">{{ option.name }}</li>
+                <tr>
+                    <td>{{ option.name }}</td>
+                </tr>
                 {% endfor %}
                 {% else %}
-                <li class="list-group-item">Aucune spécificité n'est liée à ce bien</li>
+                <tr>
+                    <td>Aucun équipement n'est lié à ce bien</td>
+                </tr>
                 {% endif %}
-            </ul>
+            </table>
         </div>
     </div>
 
+    <!-- MAP BLOCK -->
     <div id="map" style="width: 100%; height: 600px;" data-lat="{{ property.latitude }}"
         data-lng="{{ property.longitude }}" class="mb-4"></div>
 

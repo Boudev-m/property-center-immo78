@@ -24,6 +24,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>N°</th>
                 <th>Titre</th>
                 <th>Actions</th>
             </tr>
@@ -31,6 +32,7 @@
         <tbody>
             {% for option in options %}
             <tr>
+                <td>{{ option.id }}</td>
                 <td>{{ option.name }}</td>
                 <td><a href="{{ path('admin.option.edit', {id: option.id}) }}" class="btn btn-warning">Editer</a>
                     <form method="post" action="{{ path('admin.option.delete', {id: option.id}) }}"

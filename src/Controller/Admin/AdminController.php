@@ -56,15 +56,21 @@ class AdminController extends AbstractController
 
         // create Property form
         $form = $this->createForm(PropertyType::class, $property);
+
+        // get datas from request and transfer to $property
+        // The handleRequest method processes the datas request
         $form->handleRequest($request);
 
         // check if form is submitted and valid, so save in DB and redirect to index
         if ($form->isSubmitted() && $form->isValid()) {
             // the property entity must be tracked by EntityManager
-            $this->em->persist($property);
-            $this->em->flush();
+            $this->em->persist($property); // prepare data backup
+            $this->em->flush(); // data backup
             $this->addFlash('success', 'Bien ajouté avec succès.');
-            return $this->redirectToRoute('admin.property.index');
+            return $this->redirectToRoute('property.show', [
+                'id' => $property->getId(),
+                'slug' => $property->getSlug()
+            ]);
         }
 
         return $this->render('admin/property/new.html.twig', [
@@ -88,6 +94,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         // check if form is submitted and valid, so save in DB and redirect to index
+        // the verification is based on the Property entity
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->em->flush();

@@ -6,46 +6,45 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Nos biens disponibles</h1>
+<div class="container" style="max-width: 1020px;">
     <div class="row">
-        <div>
+        <div class="mt-5">
             {{ form_start(form) }}
             <div class="form row">
-                <div class="col">
+                <div class="col-3">
                     {{ form_row(form.minSurface) }}
                 </div>
-                <div class="col">
+                <div class="col-3">
                     {{ form_row(form.maxPrice) }}
                 </div>
-                <div class="col">
+                <div class="col justify-content-center">
                     {{ form_row(form.options) }}
                 </div>
             </div>
             <div class="form row">
-                <div class="col">
+                <div class="col-6">
                     {{ form_row(form.address, {id: 'search_address'}) }}
                     <!-- <div class="form-group">
                         <input type="text" value="" placeholder="Adresse" id="search_address" class="form-control">
                     </div> -->
                 </div>
-                <div class="col">
+                <div class="col-3">
                     {{ form_row(form.distance) }}
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary">Rechercher</button>
+                    <button class="btn btn-success">Rechercher</button>
                 </div>
             </div>
             {{ form_end(form) }}
         </div>
-        <div class="count">
-            Résultat de la recherche : {{ properties.getTotalItemCount }} biens trouvés
+        <div class="my-2">
+            Résultat de la recherche : {{ properties.getTotalItemCount }} bien(s) trouvé(s)
         </div>
         {% for property in properties %}
         {{ include('property/_property.html.twig') }}
         {% endfor %}
         {# display navigation #}
-        <div class="pagination">
+        <div class="pagination d-flex justify-content-center">
             {{ knp_pagination_render(properties) }}
         </div>
     </div>

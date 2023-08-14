@@ -17,19 +17,26 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', null, ['label' => 'Titre'])  // this is a way to translate
+            ->add('title', null, ['label' => 'Titre', 'attr' => ['title' => 'Titre du bien', 'class' => 'border border-primary']])  // this is a way to translate
             ->add('description')
-            ->add('surface')
+            ->add('surface', null, ['attr' => [
+                'min' => 0,
+                'placeholder' => 60
+            ]])
             ->add('rooms')
             ->add('bedrooms')
             ->add('floor')
-            ->add('price')
+            ->add('price', null, ['attr' => [
+                'min' => 0,
+                'placeholder' => 100000
+            ]])
             ->add('heat', ChoiceType::class, ['choices' => $this->getChoices()]) // display heat name instead of int
             ->add('options', EntityType::class, [
                 'required' => false,
                 'class' => Option::class,       // Option from Entity, not Form
-                'choice_label' => 'name',   // option name as input label
-                'multiple' => true          // multitple choice available
+                'choice_label' => 'name',       // option name as input label
+                'expanded' => true,             // change selecte input to checkbox
+                'multiple' => true              // multitple choice available
             ])
             ->add('pictureFiles', FileType::class, [
                 'required' => false,
@@ -41,7 +48,10 @@ class PropertyType extends AbstractType
             ->add('latitude', HiddenType::class)    // hide the input, because not need in the form
             ->add('longitude', HiddenType::class)
             ->add('sold')
-            //->add('created_at')  Not need for the form
+            // ->add('save', SubmitType::class, [   // Not need because the form includes submit button
+            //     'label' => 'Enregistrer'
+            // ])
+            // ->add('created_at')  Not need for the form
         ;
     }
 

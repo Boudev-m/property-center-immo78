@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Se connecter{% endblock %}
+{% block title %}Connexion - Immo78{% endblock %}
 
 {% block body %}
 
-<div class="container mt-4 col-6">
-    <h1 class="text-center">Veuillez vous identifier</h1>
-
+<div class="container my-5 col-6" style="max-width: 1020px;">
+    <p class="fs-4 text-center">Veuillez vous identifier</p>
     {% if error %}
     <div class="alert alert-danger text-white">
         {# show error message translated #}
         {{ error.messagekey | trans(error.messagedata, 'security') }}
     </div>
     {% endif %}
-    <form action="{{ path('login') }}" method="post">
+    <form action="{{ path('login') }}" method="post" class="mx-auto" style="max-width: 300px;">
         <div class="form-group">
             <label for="username">Nom</label>
             <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
@@ -22,8 +21,9 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="_password" class="form-control">
         </div>
-
-        <button type="submit" class="btn btn-secondary">Se connecter</button>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-secondary">Se connecter</button>
+        </div>
     </form>
 </div>
 {% endblock %}

@@ -6,23 +6,40 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container" style="max-width: 1020px;">
 
-    <div class="p-5 mb-4 rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-5 fw-bold">L'immobilier sur Mantes la jolie et alentours</h1>
-            <button class="btn btn-outline-light fw-bold" type="button">Voir nos biens
-                disponibles</button>
+    <!-- INTRO BLOCK -->
+    <section class="py-4 row align-items-center">
+        <div class="col-6">
+            <h1 class="fs-2">L'immobilier sur Mantes la jolie et alentours</h1>
+            <a href="{{ path('property.index') }}" class="btn border border-dark fw-bold"
+                style="transition: all 300ms ease 0s; opacity:1;" onmouseout="this.style.opacity=1"
+                onmouseover="this.style.opacity=0.5">Voir les offres
+                disponibles</a>
         </div>
-    </div>
+        <div class="col-6">
+            <img src="{{ asset('images/property-illustration.png') }}" alt="illustration d'une maison" width="100%">
+        </div>
+    </section>
 
-    <div class="container text-center">
-        <h2>Les derniers biens publiés</h2>
-        <div class="row">
+    <!-- LAST PROPERTIES BLOCK -->
+    <section>
+        <h2 class="py-3 text-center">Les derniers biens publiés</h2>
+        <div class="row justify-content-between mb-5">
             {% for property in properties %}
             {{ include('property/_property.html.twig') }}
             {% endfor %}
         </div>
-    </div>
+    </section>
+
+    <!-- LAST NEWS BLOCK -->
+    <section>
+        <h2 class="py-3 text-center">Actualité récente sur l'immobilier</h2>
+        <div class="row justify-content-between mb-5">
+            {% for property in properties %}
+            {{ include('property/_property.html.twig') }}
+            {% endfor %}
+        </div>
+    </section>
 </div>
 {% endblock %}

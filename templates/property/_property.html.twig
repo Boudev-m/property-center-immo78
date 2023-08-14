@@ -1,31 +1,38 @@
 {# save this template in cache, set an unique key to identify the cache and an expiration time(optional) #}
 
 {# cache "property" ~ property.id ~ ";" ~ property.updatedAt #}
-<div class="col-3">
-    <div class="card">
+<div class="col-4 mb-3">
+    <div class="card h-100" style="border: 2px solid rgb(175, 210, 211);">
         {# check if the property has at least one image #}
-        {% if property.firstPicture %}
-        <img src="{{ vich_uploader_asset(property.firstPicture, 'imageFile') | imagine_filter('property_thumb') }}"
-            class="card-img-top" alt="..." width="100%" height="auto">
-        {% else %}
-        <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_thumb') }}" class="card-img-top"
-            alt="no-image.png" width="100%" height="auto">
-        {% endif %}
-        <div class="card-body">
+        <a href="{{ path('property.show', {slug: property.slug, id: property.id }) }}">
+            {% if property.firstPicture %}
+            <img src="{{ vich_uploader_asset(property.firstPicture, 'imageFile') | imagine_filter('property_thumb') }}"
+                class="card-img-top" alt="..." width="100%" height="auto">
+            {% else %}
+            <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_thumb') }}" class="card-img-top"
+                alt="no-image.png" width="100%" height="auto">
+            {% endif %}
+        </a>
+        <div class="card-body py-2" style="background-color:rgb(225, 240, 240);">
             <h5 class="card-title">
-                <a href="{{ path('property.show', {slug: property.slug, id: property.id }) }}">{{
+                <a href="{{ path('property.show', {slug: property.slug, id: property.id }) }}" class="text-dark">{{
                     property.title
                     }}</a>
             </h5>
-            <p class="card-text">
-                {{property.surface}} m² - {{ property.city }} ({{ property.postalCode}})
+            <p class="card-text m-0">
+                {{property.surface}} m² - {{ property.rooms }} pièce{% if property.rooms > 1 %}s{% endif %}
             </p>
-            <p>{{ property.formattedPrice }} €</p>
-            <p>Options :
+            <p class="card-text m-0">
+                {{ property.city }} ({{ property.postalCode}})
+            </p>
+            <p class="fs-4 m-0">{{ property.formattedPrice }} €</p>
+            <!-- <p class="text-secondary pt-4">
                 {% for option in property.options %}
-                {{ option.name }}
+                <span class="p-1 border border-secondary rounded" style="background-color:rgb(235, 246, 246);">
+                    {{ option.name }}
+                </span>
                 {% endfor %}
-            </p>
+            </p> -->
         </div>
     </div>
 </div>

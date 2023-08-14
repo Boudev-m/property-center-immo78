@@ -83,6 +83,16 @@ class PropertyRepository extends ServiceEntityRepository
             }
         }
 
+        // if location defined, search within a distance of 10km max by default
+        if ($search->getLatitude() && $search->getLongitude()) {
+            $query = $query
+                ->andWhere('6371 * 2 * ASIN(SQRT(POWER(SIN((p.latitude - :lat) * pi()/180 / 2), 2) + COS(p.latitude * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((p.longitude - :long) * pi()/180 / 2), 2) )) <= :distance')
+                ->setParameter('lat', $search->getLatitude())
+                ->setParameter('long', $search->getLongitude())
+                ->setParameter('distance', 10);
+        }
+
+        // if location AND distance max defined
         if ($search->getLatitude() && $search->getLongitude() && $search->getDistance()) {
             $query = $query
                 ->andWhere('6371 * 2 * ASIN(SQRT(POWER(SIN((p.latitude - :lat) * pi()/180 / 2), 2) + COS(p.latitude * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((p.longitude - :long) * pi()/180 / 2), 2) )) <= :distance')
@@ -95,7 +105,7 @@ class PropertyRepository extends ServiceEntityRepository
         $properties = $this->paginator->paginate(
             $query->getQuery(), /* query NOT result */
             $page, /*page number*/
-            12 /*limit per page*/
+            9 /*limit per page*/
         );
 
         $this->hydratePicture($properties);

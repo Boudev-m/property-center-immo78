@@ -73,7 +73,7 @@ class OptionController extends AbstractController
     }
 
     // Delete one option
-    #[Route('/options/{id}', name: 'admin.option.delete', methods: ['GET'])]
+    #[Route('/options/{id}', name: 'admin.option.delete', methods: ['POST'])]
     public function delete(Request $request, Option $option, OptionRepository $optionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $option->getId(), $request->request->get('_token'))) {

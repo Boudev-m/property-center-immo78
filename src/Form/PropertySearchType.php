@@ -25,14 +25,16 @@ class PropertySearchType extends AbstractType
                 'required' => false, // minSurface field not required
                 'label' =>  false, // remove label
                 'attr' => [
-                    'placeholder' => 'Surface minimale'
-                ]
+                    'placeholder' => 'Surface minimale',
+                    'min' => 0
+                ],
             ])
             ->add('maxPrice', IntegerType::class, [
                 'required' => false, // maxPrice field not required
                 'label' =>  false, // remove label
                 'attr' => [
-                    'placeholder' => 'Budget maximal'
+                    'placeholder' => 'Budget maximal',
+                    'min' => 0
                 ]
             ])
             ->add('options', EntityType::class, [
@@ -40,13 +42,18 @@ class PropertySearchType extends AbstractType
                 'label' => false,
                 'class' => Option::class,
                 'choice_label' => 'name',
+                'expanded' => true,
                 'multiple' => true
             ])
             ->add('address', null, [
                 'required' => false,
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Adresse, ville, code postal'
+                ]
             ])
             ->add('distance', ChoiceType::class, [
+                'placeholder' => 'Distance maximale',
                 'required' => false,
                 'label' => false,
                 'choices' => [

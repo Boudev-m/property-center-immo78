@@ -15,9 +15,6 @@
 <div class="row">
     <p>Charger des photos : </p>
     <div class="col-md-2">{{ form_row(form.pictureFiles) }}</div>
-    <button class="col-md-2 btn btn-primary">{{ button | default('Enregistrer') }}</button>{# default label for
-    button
-    #}
 </div>
 <div class="row">
     <div class="col-md-5">{{ form_row(form.address) }}</div>
@@ -29,5 +26,5 @@
     <div class="col-md-3">{{ form_row(form.longitude) }}</div>
 </div>
 {{ form_widget(form) }}
-<button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>{# default label for button #}
+<button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>
 {{ form_end(form) }}
