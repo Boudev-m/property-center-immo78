@@ -26,7 +26,10 @@ class Picture
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'property_image', fileNameProperty: 'imageName')]
-    #[Assert\Image(mimeTypes: ['image/jpeg'], mimeTypesMessage: 'Veuillez séléctionner un fichier JPEG de moins de 2mo. ')]
+    #[Assert\Image(
+        mimeTypes: ['image/jpeg', 'image/png'],
+        mimeTypesMessage: 'Fichier invalide ({{ type }}). Fichier(s) accepté(s) : {{ types }}'
+    )]
     private ?File $imageFile = null;
 
 

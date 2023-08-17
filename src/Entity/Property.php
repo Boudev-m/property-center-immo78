@@ -102,7 +102,10 @@ class Property
 
     // All : constraints for each element of pictureFiles array
     #[Assert\All([
-        new Assert\Image(mimeTypes: ['image/jpeg'], mimeTypesMessage: 'Veuillez séléctionner un/des fichier(s) au format JPEG de moins de 2mo. ')
+        new Assert\Image(
+            mimeTypes: ['image/jpeg', 'image/png', 'image/svg'],
+            mimeTypesMessage: 'Format de fichier invalide ({{ type }}). Format(s) accepté(s) : {{ types }}'
+        )
     ])]
     private $pictureFiles;
 
