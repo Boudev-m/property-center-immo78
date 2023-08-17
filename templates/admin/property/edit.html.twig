@@ -39,7 +39,9 @@
     </div> -->
 
     {{ include('admin/property/_form.html.twig', {form: form, button: 'Editer'}) }}
-
+    <div>
+        <a class="btn btn-danger" href="{{ path('admin.property.index') }}">Retour</a>
+    </div>
 </div>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
