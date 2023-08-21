@@ -23,15 +23,15 @@ export default class Map {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 18,
-            minZoom: 12,
+            minZoom: 5,
         }).addTo(map);
 
         // Icon in the map
         let mapIcon = L.icon({
             iconUrl: '/images/icons/marker-icon-2x.png',
-            iconSize: [38, 95],
-            iconAnchor: [22, 94],
-            popupAnchor: [-3, -76]
+            iconSize: [24, 50],
+            iconAnchor: [8, 49],
+            popupAnchor: [3, -46]
         });
 
         // Display the marker on the map
