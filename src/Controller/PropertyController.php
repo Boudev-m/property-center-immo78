@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Picture;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
 use App\Form\ContactType;
@@ -61,7 +62,7 @@ class PropertyController extends AbstractController
      * @return Response
      */
     #[Route('/biens/{id}-{slug}', name: 'property.show', requirements: ["slug" => "[a-z0-9\-]*"])]
-    public function show($id, $slug, Property $property, Request $request, ContactNotification $notification): Response
+    public function show(string $slug, Property $property, Request $request, ContactNotification $notification): Response
     {
         // if slug is different, so redirect with 301
         if ($property->getSlug() !== $slug) {
@@ -94,6 +95,14 @@ class PropertyController extends AbstractController
             //         'slug' => $property->getSlug()
             //     ]
             // );
+        }
+
+        $pictures = $this->em->getRepository(Picture::class)->findForProperty($property);
+        // dd($pictures);
+
+        // check if the property has an image
+        if ($pictures->containsKey($property->getId())) {
+            $property->setPicture($pictures->get($property->getId()));
         }
 
         // not need find method here because link between id in param and Property

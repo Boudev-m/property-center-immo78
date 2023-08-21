@@ -51,7 +51,7 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return PaginationInterface Returns a page of unsold properties (with search filter)
+     * @return PaginationInterface Returns a page of unsold properties (with params in search filter)
      */
     public function paginateAllVisible(PropertySearch $search, int $page): PaginationInterface
     {
@@ -126,7 +126,7 @@ class PropertyRepository extends ServiceEntityRepository
         return $properties;
     }
 
-    // get picture for each property in param
+    // get picture for all properties in param
     public function hydratePicture($properties)
     {
         /*

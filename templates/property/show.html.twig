@@ -20,25 +20,29 @@
             {# check if the property has at least one image #}
             {% if property.firstPicture %}
             {# display caroussel to show all images#}
-            <div id="carouselExample" class="carousel slide">
+            <div id="carouselExample" class="carousel slide border border-secondary">
                 <div class="carousel-inner">
                     {% for picture in property.pictures %}
                     <div class="carousel-item {% if picture == property.firstPicture %}active{% endif %}">
-                        <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_medium') }}"
-                            alt="{{ picture.imageName }}">
+                        <a href="{{ vich_uploader_asset(picture, 'imageFile') }}">
+                            <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_medium') }}"
+                                alt="Image du bien" style="max-width: 100%;">
+                        </a>
                     </div>
                     {% endfor %}
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="prev">
+                {% if property.pictures.count > 1 %}
+                <button class="carousel-control-prev bg-secondary" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev" style="width: fit-content;">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="next">
+                <button class="carousel-control-next bg-secondary" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next" style="width: fit-content;">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
+                {% endif %}
             </div>
 
             {% else %}
@@ -52,7 +56,7 @@
             <h2 id="property-title">{{ property.title }}</h2>
             <h4>{{ property.rooms }} pièces - {{ property.surface }} m²</h4>
             <h4 class="fw-bold">{{ property.formattedPrice }} €</h4>
-            <a href="#" class="btn btn-success" id="contactButton" {% if contactForm.vars.submitted %}
+            <a href="#" class="btn btn-secondary" id="contactButton" {% if contactForm.vars.submitted %}
                 style="display: none;" {% endif %}>Contacter l'agence</a>
             <div id="contactForm" class="mt-4" {% if not contactForm.vars.submitted %} style="display: none;" {% endif
                 %}>
@@ -67,7 +71,7 @@
                 </div>
                 <div class="col">{{ form_rest(contactForm) }}</div>
                 <div class="form-group">
-                    <button class="btn btn-primary">Envoyer</button>
+                    <button class="btn btn-secondary">Envoyer</button>
                 </div>
                 {{ form_end(contactForm) }}
             </div>
@@ -79,7 +83,7 @@
                 ipsam ex beatae neque perspiciatis odit accusamus asperiores obcaecati eligendi hic amet nulla esse qui
                 illo corrupti? Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio molestiae sit voluptas
                 recusandae voluptates possimus autem inventore ex quasi eos cum obcaecati architecto fugit eaque dolor
-                natus sapiente, quod harum!
+                natus sapiente!
             </P>
         </div>
     </div>
@@ -90,7 +94,7 @@
 
         <!-- FEATURES BLOCK -->
         <div class="col-md-6">
-            <h2>Caractéristiques du bien</h2>
+            <h3>Caractéristiques du bien</h3>
             <table class="table table-success table-bordered opacity-75">
                 <tr>
                     <td>Surface habitable en m²</td>
@@ -117,7 +121,7 @@
 
         <!-- OPTIONS BLOCK -->
         <div class="col-md-6">
-            <h2>Équipement(s)</h2>
+            <h3>Équipement(s)</h3>
             <table class="table table-success table-bordered opacity-75">
                 {% if (property.options.count > 0) %}
                 {% for option in property.options %}
