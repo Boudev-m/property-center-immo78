@@ -1,0 +1,19 @@
+{# admin news edit page : This page shows one news article to edit (back office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer l'article - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4" style="max-width: 1020px;">
+    <h2>Editer l'article d'actualité</h2>
+
+    {{ include('admin/news/_form.html.twig', {form: form, button: 'Editer'}) }}
+
+    <div>
+        <a class="btn btn-danger" href="{{ path('admin.news.index') }}">Retour</a>
+    </div>
+</div>
+
+{% endblock %}

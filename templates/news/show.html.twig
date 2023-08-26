@@ -6,18 +6,35 @@
 
 {% block body %}
 
-<div class="container text-center" style="max-width: 800px;">
-    <div class="my-5">
-        <h1>{{ article.title }}</h1>
-        <div class="my-3">
+<div class="container" style="max-width: 800px;">
+    <div class="mt-5 mb-4">
+        <h1 class="text-center">{{ article.title }}</h1>
+        <div class="my-3 text-center">
             <img src="{{ article.imageName }}" alt="illustration de l'actualité">
         </div>
-        <p class="fst-italic text-secondary">Publié le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt |
-            date('h:i') }}
-        </p>
-        <p class="fs-5">{{ article.text }}</p>
+        <p class="fst-italic text-secondary text-center">Publié le {{ article.createdAt | date('d/m/Y \\à H\\hi') }}</p>
+        <p class="fs-5">{{ article.text | nl2br }}</p>
     </div>
-    <div></div>
+    <hr>
+    <div class="my-4">
+        <p>Commenter cet article :</p>
+        <form class="form contact" action="#" id="contact-form" method="post">
+            <div class="my-1 col-5">
+                <input type="text" class="form-control rounded-0 bg-light" id="name" name="name" placeholder="Nom">
+            </div>
+            <div class="my-1 col-7">
+                <textarea class="form-control rounded-0 bg-light" placeholder="Commentaire..." id="message"
+                    name="message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-light rounded-0 my-1">Envoyer</button>
+        </form>
+    </div>
+    <div>
+        <div><span class="fw-bold">John Doe</span> | <span>Posté le 26 août 2023 à 14h27</span></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident, aperiam
+            nobis omnis inventore magnam, consequatur minima necessitatibus perferendis eveniet accusantium impedit
+            corporis nisi dolore consequuntur nulla neque dolor tenetur similique.</p>
+    </div>
 </div>
 
 {% endblock %}

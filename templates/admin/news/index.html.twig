@@ -1,0 +1,54 @@
+{# admin news index page : This page shows all news to manage them (back office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les articles d'actualité - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4" style="max-width: 1020px;">
+    <div>
+        <div>
+            <h2>Gérer les articles d'actualité</h2>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        </div>
+        <div>
+            <h5>Nombre total d'articles : {{ news|length }}</h5>
+            <a href="{{ path('admin.news.new') }}" class="btn btn-primary rounded-0">Ajouter un nouvel article</a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Titre</th>
+                <th>Date de publication</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in news %}
+            <tr class="align-middle">
+                <td>{{ article.id }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.createdAt | date('d/m/Y \\à H\\hi') }}</td>
+                <td>
+                    <a href="{{ path('news.show', {id: article.id, slug: article.slug}) }}"
+                        class="btn btn-success rounded-0">Voir</a>
+                    <a href="{{ path('admin.news.edit', {id: article.id}) }}"
+                        class="btn btn-secondary rounded-0">Editer</a>
+                    <form method="post" action="{{ path('admin.news.delete', {id: article.id}) }}"
+                        class="d-inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer ce bien ?')">
+                        <input type="hidden" name="_method" value="DELETE"> {# _method is known by symfony #}
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}"> {# create
+                        token #}
+                        <button class="btn btn-danger rounded-0">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

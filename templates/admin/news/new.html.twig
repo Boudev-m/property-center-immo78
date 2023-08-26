@@ -1,0 +1,18 @@
+{# admin news new page : This page is used to create a news article (back office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un article d'actualité - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4" style="max-width: 1020px;">
+    <h2>Ajouter un nouvel article d'actualité</h2>
+
+    {{ include('admin/news/_form.html.twig', {form: form, button: 'Créer'}) }}
+
+    <div>
+        <a class="btn btn-danger" href="{{ path('admin.news.index') }}">Retour</a>
+    </div>
+</div>
+{% endblock %}

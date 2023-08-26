@@ -1,0 +1,9 @@
+{# this is the form component for news article #}
+
+{{ form_start(form) }}
+<div>
+    <div class="col-md-6">{{ form_row(form.title) }}</div>
+    <div>{{ form_row(form.text) }}</div>
+</div>
+<button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>
+{{ form_end(form) }}

@@ -7,7 +7,7 @@
 <div class="container my-5 col-6" style="max-width: 1020px;">
     <p class="fs-4 text-center">Veuillez vous identifier</p>
     {% if error %}
-    <div class="alert alert-danger text-white">
+    <div class="alert alert-danger text-center mx-auto" style="max-width: 300px;">
         {# show error message translated #}
         {{ error.messagekey | trans(error.messagedata, 'security') }}
     </div>
@@ -15,14 +15,15 @@
     <form action="{{ path('login') }}" method="post" class="mx-auto" style="max-width: 300px;">
         <div class="form-group">
             <label for="username">Nom</label>
-            <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+            <input type="text" id="username" name="_username" class="form-control bg-light rounded-0"
+                value="{{ last_username }}">
         </div>
         <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="_password" class="form-control">
+            <input type="password" id="password" name="_password" class="form-control bg-light rounded-0">
         </div>
         <div class="text-center mt-3">
-            <button type="submit" class="btn btn-secondary">Se connecter</button>
+            <button type="submit" class="btn btn-light rounded-0">Se connecter</button>
         </div>
     </form>
 </div>
