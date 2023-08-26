@@ -1,0 +1,23 @@
+{# news show page : This page shows one news article (front office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }} - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container text-center" style="max-width: 800px;">
+    <div class="my-5">
+        <h1>{{ article.title }}</h1>
+        <div class="my-3">
+            <img src="{{ article.imageName }}" alt="illustration de l'actualité">
+        </div>
+        <p class="fst-italic text-secondary">Publié le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt |
+            date('h:i') }}
+        </p>
+        <p class="fs-5">{{ article.text }}</p>
+    </div>
+    <div></div>
+</div>
+
+{% endblock %}

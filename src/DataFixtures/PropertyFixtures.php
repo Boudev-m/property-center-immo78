@@ -7,7 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory; // for generate fake datas
 
-class PropertyFixture extends Fixture
+class PropertyFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -26,7 +26,9 @@ class PropertyFixture extends Fixture
                 ->setCity($faker->city())
                 ->setAddress($faker->address())
                 ->setPostalCode(str_replace(' ', '', $faker->postcode()))
-                ->setSold(false);
+                ->setSold(false)
+                ->setLatitude($faker->latitude)
+                ->setLongitude(($faker->longitude));
             $manager->persist($property);
         }
         $manager->flush();

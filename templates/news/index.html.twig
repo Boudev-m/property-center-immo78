@@ -1,0 +1,17 @@
+{# news index page : This page shows all news (front office) #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualité - Immo78{% endblock %}
+
+{% block body %}
+
+<div class="container" style="max-width: 1020px;">
+    <div class="row my-5 justify-content-center">
+        {% for article in news %}
+        {{ include('news/_article.html.twig') }}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
