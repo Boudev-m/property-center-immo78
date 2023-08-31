@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -21,9 +22,17 @@ class Post
     private ?News $news = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 20
+    )]
     private ?string $userName = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        min: 3,
+        max: 300
+    )]
     private ?string $text = null;
 
     #[ORM\Column]
