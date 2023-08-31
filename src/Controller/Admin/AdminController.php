@@ -88,7 +88,7 @@ class AdminController extends AbstractController
      * @param Request $request
      */
     #[Route('/biens/{id}/editer', name: 'admin.property.edit', methods: ['GET', 'POST'])]
-    public function edit(Property $property, Request $request): Response
+    public function edit(string $id, Property $property, Request $request): Response
     {
         // create Property form and pass $property datas to fill form
         $form = $this->createForm(PropertyType::class, $property);
@@ -99,7 +99,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->em->flush();
-            $this->addFlash('success', 'Bien edité avec succès.');
+            $this->addFlash('success', "Bien n°$id edité avec succès.");
             return $this->redirectToRoute('admin.property.index');
         }
 
