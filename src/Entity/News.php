@@ -6,6 +6,8 @@ use App\Repository\NewsRepository;
 use Cocur\Slugify\Slugify;
 use DateTimeImmutable;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -45,9 +47,13 @@ class News
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
+    #[ORM\OneToMany(mappedBy: 'news', targetEntity: Post::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $posts;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,5 +152,35 @@ class News
             // update updated_at
             $this->updated_at = new \DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
         }
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setNews($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getNews() === $this) {
+                $post->setNews(null);
+            }
+        }
+
+        return $this;
     }
 }
