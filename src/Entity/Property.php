@@ -103,7 +103,7 @@ class Property
     // All : constraints for each element of pictureFiles array
     #[Assert\All([
         new Assert\Image(
-            mimeTypes: ['image/jpeg', 'image/png', 'image/svg'],
+            mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
             mimeTypesMessage: 'Format de fichier invalide ({{ type }}). Format(s) accepté(s) : {{ types }}'
         )
     ])]
