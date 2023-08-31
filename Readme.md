@@ -6,7 +6,7 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 ### Fonctionnalités globales
 - Afficher les biens en vente et leurs informations
 - Rechercher un bien selon des critères
-- Contacter l'agence par mail
+- Contacter l'agence via un formulaire
 - Afficher les articles d'actualité immobilière
 - Réagir à un article en postant un commentaire
 - Connexion et authentification administrateur
@@ -14,6 +14,16 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 
 ### Technos utilisées
 ```Symfony``` ```MySQL``` ```Bootstrap``` ```Javascript```
+
+### Environnement de développement
+```Windows``` ```Visual Studio Code``` ```WAMP```
+
+### Entités en base de données
+- ``Property`` : contient les biens
+- ``Option`` : contient les options des biens (avec une relation ManyToMany)
+- ``Picture`` : contient les images des biens (avec une relation OneToMany)
+- ``News`` : contient les articles d'actualité
+- ``User`` : contient le compte administrateur
 
 ### Routes et Urls
     
