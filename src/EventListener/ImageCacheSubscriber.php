@@ -39,7 +39,6 @@ class ImageCacheSubscriber implements EventSubscriberInterface
     {
         // get the entity
         $entity = $args->getObject();
-        dd($entity);
         // if uploaded entity is a Picture
         if (!$entity instanceof Picture) {
             return;

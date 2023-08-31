@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="container" style="max-width: 800px;">
+<div class="container py-4" style="max-width: 800px;">
     <div class="my-4">
         <h1 class="text-center">{{ article.title }}</h1>
         <div class="my-3 text-center">
@@ -20,28 +20,25 @@
     <div class="mx-auto" style="max-width: 700px;">
         <div class="my-4">
             <p>Commenter cet article :</p>
-            <form class="form contact" action="#" id="contact-form" method="post">
-                <div class="my-1 col-5">
-                    <input type="text" class="form-control rounded-0 bg-light" id="name" name="name" placeholder="Nom">
-                </div>
-                <div class="my-1 col-7">
-                    <textarea class="form-control rounded-0 bg-light" placeholder="Commentaire..." id="message"
-                        name="message"></textarea>
-                </div>
+            {{ form_start(form) }}
+            <div class="my-1 col-5">{{ form_row(form.userName) }}</div>
+            <div class="my-1 col-7">{{ form_row(form.text) }}</div>
+            <div class="form-goup">
                 <button type="submit" class="btn btn-light rounded-0 my-1">Envoyer</button>
-            </form>
+            </div>
+            {{ form_end(form) }}
         </div>
         <div>
-            <div class="">
-                {% for post in posts %}
-                <div><span class="fw-bold">{{ post.userName }}</span> - <span class="fst-italic fw-light"> Posté le {{
+            {% for post in posts %}
+            <div class="border-start border-2 border-secondary ps-2 my-4">
+                <div><span class="fw-bold">{{ post.userName }}</span> - <span class="fst-italic fw-light">le {{
                         post.createdAt
                         | date('d/m/Y \\à H\\hi')
                         }}</span>
                 </div>
-                <p>{{ post.text | nl2br }}</p>
-                {% endfor %}
+                <p class="border-start border-2 border-light ps-2">{{ post.text | nl2br }}</p>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>

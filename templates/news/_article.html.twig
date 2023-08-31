@@ -3,7 +3,7 @@
 {# cache "article" ~ article.id ~ ";" ~ article.updatedAt #}
 <div class="card mb-4 bg-transparent p-0" style="max-width: 800px;">
     <div class="row g-0">
-        <div class="col-md-5">
+        <div class="col-md-5 bg-light">
             <a href="{{ path('news.show', {'id' : article.id, 'slug' : article.slug }) }}">
                 <img src="{{ vich_uploader_asset(article, 'image_file') | imagine_filter('news_thumb') }}"
                     class="img-fluid rounded-start border-end border-2" alt="illustration de l'article">
