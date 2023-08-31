@@ -3,3 +3,10 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# if the url entered by user doesn't exist -> redirect to 404 page #
+fallback:
+    path: /{any}
+    controller: App\Controller\HomeController::fallback
+    requirements:
+        any: .*
