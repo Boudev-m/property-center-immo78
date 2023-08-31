@@ -8,9 +8,13 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
-
+#[Vich\Uploadable]
 class News
 {
     #[ORM\Id]
@@ -26,6 +30,14 @@ class News
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_name = null;
+
+    // NOTE: This is not a mapped field of entity metadata, just a simple property.
+    #[Vich\UploadableField(mapping: 'news_image', fileNameProperty: 'image_name')]
+    #[Assert\Image(
+        mimeTypes: ['image/jpeg', 'image/png'],
+        mimeTypesMessage: 'Fichier invalide ({{ type }}). Fichier(s) accepté(s) : {{ types }}'
+    )]
+    private ?File $image_file = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
@@ -107,5 +119,32 @@ class News
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * Get the value of image_file
+     *
+     * @return ?File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->image_file;
+    }
+
+    /**
+     * Set the value of image_file
+     *
+     * @param ?File $image_file
+     *
+     * @return self
+     */
+    public function setImageFile(?File $image_file): void
+    {
+        $this->image_file = $image_file;
+
+        if ($this->image_file instanceof UploadedFile) {
+            // update updated_at
+            $this->updated_at = new \DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
+        }
     }
 }

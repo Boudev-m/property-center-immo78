@@ -11,13 +11,10 @@ liip_imagine:
 
         # the name of the "filter set"
         property_thumb:
-
             # adjust the image quality to 75%
             quality: 75
-
             # list of transformations to apply (the "filters")
             filters:
-
                 # create a thumbnail: set size to 360x230 and use the "outbound" mode
                 # to crop the image when the size ratio of the input differs
                 thumbnail: { size: [360, 230], mode: outbound }
@@ -28,3 +25,13 @@ liip_imagine:
                 thumbnail: { size: [600, 450], mode: outbound }
                 # create a 30px black border in top and bottom and center the thumbnail on a black background
                 background: { size: [600, 480], position: center, color: '#333' }
+
+        news_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [360, 230], mode: outbound }
+
+        news_medium:
+            quality: 75
+            filters:
+                thumbnail: { size: [600, 450], mode: outbound }

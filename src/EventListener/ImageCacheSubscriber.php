@@ -39,8 +39,8 @@ class ImageCacheSubscriber implements EventSubscriberInterface
     {
         // get the entity
         $entity = $args->getObject();
+        dd($entity);
         // if uploaded entity is a Picture
-        // dump('updated');
         if (!$entity instanceof Picture) {
             return;
             // if file is uploaded
@@ -48,7 +48,6 @@ class ImageCacheSubscriber implements EventSubscriberInterface
             // delete image in cache
             // }
         }
-        dd('end');
         $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
 
         // // if file uploaded

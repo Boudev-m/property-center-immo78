@@ -39,6 +39,33 @@ class NewsRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return News[] Returns an array of all news, order by creation date (newest)
+     */
+    public function findAll(): array
+    {
+        $query = $this->createQueryBuilder('news');
+        $news = $query->select()
+            ->orderBy('news.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+        return $news;
+    }
+
+    /**
+     * @return News[] Returns an array of last 3 news articles
+     */
+    public function findLatest(): array
+    {
+        $query = $this->createQueryBuilder('news');
+        $news = $query->select()
+            ->orderBy('news.created_at', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+        return $news;
+    }
+
     //    /**
     //     * @return News[] Returns an array of News objects
     //     */

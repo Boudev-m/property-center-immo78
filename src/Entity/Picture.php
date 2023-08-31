@@ -32,7 +32,6 @@ class Picture
     )]
     private ?File $imageFile = null;
 
-
     public function getId(): ?int
     {
         return $this->id;

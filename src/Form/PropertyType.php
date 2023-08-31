@@ -36,9 +36,13 @@ class PropertyType extends AbstractType
                 'class' => Option::class,       // Option from Entity, not Form
                 'choice_label' => 'name',       // option name as input label
                 'expanded' => true,             // change selecte input to checkbox
-                'multiple' => true              // multitple choice available
+                'multiple' => true,              // multitple choice available
+                'attr' => [
+                    'class' => 'd-flex justify-content-evenly'
+                ]
             ])
             ->add('pictureFiles', FileType::class, [
+                'label' => 'Importer des images',
                 'required' => false,
                 'multiple' => true
             ])
@@ -47,7 +51,9 @@ class PropertyType extends AbstractType
             ->add('postal_code')
             ->add('latitude', HiddenType::class)    // hide the input, because not need in the form
             ->add('longitude', HiddenType::class)
-            ->add('sold')
+            ->add('sold', null, [
+                'label' => 'Vendu (cochez la case si le bien a été vendu)',
+            ])
             // ->add('save', SubmitType::class, [   // Not need because the form includes submit button
             //     'label' => 'Enregistrer'
             // ])

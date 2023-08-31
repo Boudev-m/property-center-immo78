@@ -20,10 +20,14 @@ class NewsType extends AbstractType
             ->add('text', null, ['attr' => [
                 'title' => 'Texte de l\'article',
                 'class' => 'border border-success bg-light rounded-0',
-                'rows' => 15
+                'rows' => 10
             ]])
-            ->add('pictureFiles', FileType::class, [
-                'required' => false
+            ->add('image_file', FileType::class, [
+                'label' => 'Charger une image',
+                'required' => false,
+                'attr' => [
+                    'class' => 'border border-success bg-light rounded-0'
+                ]
             ])
             // ->add('image_name')
             // ->add('created_at')
