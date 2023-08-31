@@ -24,7 +24,7 @@ class OptionController extends AbstractController
     }
 
     // Create an option
-    #[Route('/options/new', name: 'admin.option.new', methods: ['GET', 'POST'])]
+    #[Route('/options/nouveau', name: 'admin.option.new', methods: ['GET', 'POST'])]
     public function new(Request $request, OptionRepository $optionRepository): Response
     {
         $option = new Option();
@@ -54,7 +54,7 @@ class OptionController extends AbstractController
 
 
     // Edit one option
-    #[Route('/options/{id}/edit', name: 'admin.option.edit', methods: ['GET', 'POST'])]
+    #[Route('/options/{id}/editer', name: 'admin.option.edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Option $option, OptionRepository $optionRepository): Response
     {
         $form = $this->createForm(OptionType::class, $option);
@@ -73,7 +73,7 @@ class OptionController extends AbstractController
     }
 
     // Delete one option
-    #[Route('/options/{id}', name: 'admin.option.delete', methods: ['POST'])]
+    #[Route('/options/{id}/supprimer', name: 'admin.option.delete', methods: ['POST'])]
     public function delete(Request $request, Option $option, OptionRepository $optionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $option->getId(), $request->request->get('_token'))) {

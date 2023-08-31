@@ -6,11 +6,10 @@ use App\Entity\Picture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/picture')] // Racine 
+#[Route('/admin')] // Root route
 class AdminPictureController extends AbstractController
 {
     /**
@@ -28,7 +27,7 @@ class AdminPictureController extends AbstractController
      * @param Picture $property
      * @param Request $request
      */
-    #[Route('/{id}', name: 'admin.picture.delete', methods: ['DELETE'])]
+    #[Route('/images/{id}/supprimer', name: 'admin.picture.delete', methods: ['DELETE'])]
     public function delete(Picture $picture, Request $request): JsonResponse
     {
         // Check if token in delete form is valid

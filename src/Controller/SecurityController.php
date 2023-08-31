@@ -9,11 +9,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'login')]
+    #[Route(['/login', 'admin'], name: 'login')]
     public function login(AuthenticationUtils $authUtils): Response
     {
-        $lastUserName = $authUtils->getLastUsername(); // get last username from input user
-        $error = $authUtils->getLastAuthenticationError(); // get error auth
+        $lastUserName = $authUtils->getLastUsername();      // get last username from input user
+        $error = $authUtils->getLastAuthenticationError();  // get error auth
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUserName,
             'error' => $error
@@ -23,23 +23,23 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'logout')]
     public function logout(): Response
     {
-        return $this->render('security/login.html.twig');
+        return $this->render('home/index.html.twig');
     }
 
-    #[Route('/registration', name: 'registration')]
-    public function registration(/*UserPasswordHasherInterface $passwordHasher*/)
-    {
-        // // ... e.g. get the user data from a registration form
-        // $user = new User();
-        // $plaintextPassword = 'ok';
+    // #[Route('/registration', name: 'registration')]
+    // public function registration(UserPasswordHasherInterface $passwordHasher)
+    // {
+    //     // // ... e.g. get the user data from a registration form
+    //     // $user = new User();
+    //     // $plaintextPassword = 'ok';
 
-        // // hash the password (based on the security.yaml config for the $user class)
-        // $hashedPassword = $passwordHasher->hashPassword(
-        //     $user,
-        //     $plaintextPassword
-        // );
-        // $user->setPassword($hashedPassword);
+    //     // // hash the password (based on the security.yaml config for the $user class)
+    //     // $hashedPassword = $passwordHasher->hashPassword(
+    //     //     $user,
+    //     //     $plaintextPassword
+    //     // );
+    //     // $user->setPassword($hashedPassword);
 
-        return $this->render('security/registration.html.twig');
-    }
+    //     return $this->render('security/registration.html.twig');
+    // }
 }

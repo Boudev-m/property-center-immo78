@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\NewsRepository;
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +16,14 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route(['/', '/home', '/index'], name: 'home')]
-    public function index(PropertyRepository $repository): Response
+    public function index(PropertyRepository $propertyRepository, NewsRepository $newsRepository): Response
     {
-        $lastProperties = $repository->findLatest();
-        // dd($lastProperties[0]->getSlug(), $lastProperties[0]->getId());
+        $lastProperties = $propertyRepository->findLatest();
+        $lastNews = $newsRepository->findLatest();
+
         return $this->render('home/index.html.twig', [
-            'properties' => $lastProperties
+            'properties' => $lastProperties,
+            'news' => $lastNews
         ]);
     }
 
@@ -28,5 +31,11 @@ class HomeController extends AbstractController
     public function contact(): Response
     {
         return $this->render('home/contact.html.twig');
+    }
+
+    public function fallback(): Response
+    {
+        $response = new Response('Page not found', 404);
+        return $this->render('home/error404.html.twig', [], $response);
     }
 }
