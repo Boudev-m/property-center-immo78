@@ -2,14 +2,15 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les biens - Immo78{% endblock %}
+{% block title %}Gérer les options - Immo78{% endblock %}
 
 {% block body %}
 
-<div class="container mt-4">
-    <h1>Ajouter une option</h1>
-
+<div class="container my-4" style="max-width: 1020px;">
+    <h3>Ajouter une option</h3>
     {{ include('admin/option/_form.html.twig', {form: form, button: 'Créer'}) }}
-
+    <div>
+        <a class="btn btn-danger" href="{{ path('admin.option.index') }}">Retour</a>
+    </div>
 </div>
 {% endblock %}

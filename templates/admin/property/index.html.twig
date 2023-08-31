@@ -6,18 +6,17 @@
 
 {% block body %}
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Gérer les biens</h1>
-
+<div class="container mt-4" style="max-width: 1020px;">
+    <div>
+        <div>
+            <h2>Gérer les biens</h2>
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">{{ message }}</div>
             {% endfor %}
-
         </div>
-        <div class="col-md-6">
-            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter un nouveau bien</a>
+        <div>
+            <h5>Nombre total de biens : {{ properties|length }}</h5>
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary rounded-0">Ajouter un nouveau bien</a>
         </div>
 
     </div>
@@ -26,7 +25,7 @@
             <tr>
                 <th>N°</th>
                 <th>Titre</th>
-                <th>Actions</th>
+                <th>Date de publication</th>
             </tr>
         </thead>
         <tbody>
@@ -34,13 +33,18 @@
             <tr>
                 <td>{{ property.id }}</td>
                 <td>{{ property.title }}</td>
-                <td><a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-warning">Editer</a>
+                <td>{{ property.createdAt | date('d/m/Y \\à H\\hi') }}</td>
+                <td>
+                    <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}"
+                        class="btn btn-success rounded-0">Voir</a>
+                    <a href="{{ path('admin.property.edit', {id: property.id}) }}"
+                        class="btn btn-secondary rounded-0">Editer</a>
                     <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}"
                         class="d-inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer ce bien ?')">
                         <input type="hidden" name="_method" value="DELETE"> {# _method is known by symfony #}
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}"> {# create
                         token #}
-                        <button class="btn btn-danger">Supprimer</button>
+                        <button class="btn btn-danger rounded-0">Supprimer</button>
                     </form>
                 </td>
             </tr>

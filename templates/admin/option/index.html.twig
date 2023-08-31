@@ -2,22 +2,21 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les biens - Immo78{% endblock %}
+{% block title %}Gérer les options - Immo78{% endblock %}
 
 {% block body %}
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Gérer les options</h1>
-
+<div class="container mt-4" style="max-width: 1020px;">
+    <div>
+        <div>
+            <h2>Gérer les options liées aux biens</h2>
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">{{ message }}</div>
             {% endfor %}
-
         </div>
-        <div class="col-md-6">
-            <a href="{{ path('admin.option.new') }}" class="btn btn-primary">Ajouter une nouvelle option</a>
+        <div>
+            <h5>Nombre total d'options : {{ options|length }}</h5>
+            <a href="{{ path('admin.option.new') }}" class="btn btn-primary rounded-0">Ajouter une nouvelle option</a>
         </div>
 
     </div>
@@ -26,7 +25,6 @@
             <tr>
                 <th>N°</th>
                 <th>Titre</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -34,13 +32,14 @@
             <tr>
                 <td>{{ option.id }}</td>
                 <td>{{ option.name }}</td>
-                <td><a href="{{ path('admin.option.edit', {id: option.id}) }}" class="btn btn-warning">Editer</a>
+                <td><a href="{{ path('admin.option.edit', {id: option.id}) }}"
+                        class="btn btn-secondary rounded-0">Editer</a>
                     <form method="post" action="{{ path('admin.option.delete', {id: option.id}) }}"
                         class="d-inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer ce bien ?')">
                         <input type="hidden" name="_method" value="DELETE"> {# _method is known by symfony #}
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ option.id) }}"> {# create
                         token #}
-                        <button class="btn btn-danger">Supprimer</button>
+                        <button class="btn btn-danger rounded-0">Supprimer</button>
                     </form>
                 </td>
             </tr>

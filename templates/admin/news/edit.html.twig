@@ -6,9 +6,17 @@
 
 {% block body %}
 
-<div class="container mt-4" style="max-width: 1020px;">
+<div class="container my-4" style="max-width: 1020px;">
     <h2>Editer l'article d'actualité</h2>
 
+    {# suppression dynamique d'images avec de l'ajax #}
+    <div class="row">
+        <div class="col" style="width: 100px; flex: auto; margin: 5px;">
+            <img src="{{ vich_uploader_asset(article, 'image_file') | imagine_filter('news_thumb') }}" width="100"
+                class="mx-1">
+            <a href="" class="btn btn-danger" data-delete data-token="{{ csrf_token('delete') }}">Supprimer</a>
+        </div>
+    </div>
     {{ include('admin/news/_form.html.twig', {form: form, button: 'Editer'}) }}
 
     <div>

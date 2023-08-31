@@ -4,6 +4,7 @@
 <div>
     <div class="col-md-6">{{ form_row(form.title) }}</div>
     <div>{{ form_row(form.text) }}</div>
+    <div class="col-md-4">{{ form_row(form.image_file) }}</div>
 </div>
 <button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>
 {{ form_end(form) }}

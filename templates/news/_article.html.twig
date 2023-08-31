@@ -3,27 +3,24 @@
 {# cache "article" ~ article.id ~ ";" ~ article.updatedAt #}
 <div class="card mb-4 bg-transparent p-0" style="max-width: 800px;">
     <div class="row g-0">
-        <div class="col-md-4">
-            {% if article.imageName %}
+        <div class="col-md-5">
             <a href="{{ path('news.show', {'id' : article.id, 'slug' : article.slug }) }}">
-                <img src="{{ article.imageName }}" class="img-fluid rounded-start" alt="illustration de l'actualité"
-                    width="100%" height="auto">
+                <img src="{{ vich_uploader_asset(article, 'image_file') | imagine_filter('news_thumb') }}"
+                    class="img-fluid rounded-start border-end border-2" alt="illustration de l'article">
             </a>
-            {% else %}
-            <img src="{{ '/images/properties/no-image.png' | imagine_filter('article_thumb') }}"
-                class="img-fluid rounded-start" alt="no-image.png" width="100%" height="auto">
-            {% endif %}
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7 d-flex flex-column">
             <div class="card-body">
                 <h5 class="card-title">{{ article.title }}</h5>
                 <p class="card-text">{{ article.text | u.truncate(200) }}... <a
                         href="{{ path('news.show', {'id' : article.id, 'slug' : article.slug }) }}">Lire
                         la suite</a></p>
-                <p class="card-text text-end"><small class="text-body-secondary">{{ article.createdAt | date('d/m/Y')
-                        }}</small>
-                </p>
             </div>
+            <p class="card-text text-end px-3 pb-2"><small class="text-body-secondary fst-italic ">{{
+                    article.createdAt |
+                    date('d/m/Y')
+                    }}</small>
+            </p>
         </div>
     </div>
 </div>
