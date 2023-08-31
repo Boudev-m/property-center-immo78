@@ -17,24 +17,32 @@
         <p class="fs-5">{{ article.text | nl2br }}</p>
     </div>
     <hr>
-    <div class="my-4">
-        <p>Commenter cet article :</p>
-        <form class="form contact" action="#" id="contact-form" method="post">
-            <div class="my-1 col-5">
-                <input type="text" class="form-control rounded-0 bg-light" id="name" name="name" placeholder="Nom">
+    <div class="mx-auto" style="max-width: 700px;">
+        <div class="my-4">
+            <p>Commenter cet article :</p>
+            <form class="form contact" action="#" id="contact-form" method="post">
+                <div class="my-1 col-5">
+                    <input type="text" class="form-control rounded-0 bg-light" id="name" name="name" placeholder="Nom">
+                </div>
+                <div class="my-1 col-7">
+                    <textarea class="form-control rounded-0 bg-light" placeholder="Commentaire..." id="message"
+                        name="message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-light rounded-0 my-1">Envoyer</button>
+            </form>
+        </div>
+        <div>
+            <div class="">
+                {% for post in posts %}
+                <div><span class="fw-bold">{{ post.userName }}</span> - <span class="fst-italic fw-light"> Posté le {{
+                        post.createdAt
+                        | date('d/m/Y \\à H\\hi')
+                        }}</span>
+                </div>
+                <p>{{ post.text | nl2br }}</p>
+                {% endfor %}
             </div>
-            <div class="my-1 col-7">
-                <textarea class="form-control rounded-0 bg-light" placeholder="Commentaire..." id="message"
-                    name="message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-light rounded-0 my-1">Envoyer</button>
-        </form>
-    </div>
-    <div>
-        <div><span class="fw-bold">John Doe</span> | <span>Posté le 26 août 2023 à 14h27</span></div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident, aperiam
-            nobis omnis inventore magnam, consequatur minima necessitatibus perferendis eveniet accusantium impedit
-            corporis nisi dolore consequuntur nulla neque dolor tenetur similique.</p>
+        </div>
     </div>
 </div>
 

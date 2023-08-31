@@ -49,8 +49,11 @@ class NewsController extends AbstractController
             );
         }
 
+        // get posts of the article
+        $posts = $article->getPosts();
         return $this->render('news/show.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'posts' => $posts
         ]);
     }
 }
