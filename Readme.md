@@ -21,8 +21,9 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 ### Entités en base de données
 - ``Property`` : contient les biens
 - ``Option`` : contient les options des biens (avec une relation ManyToMany)
-- ``Picture`` : contient les images des biens (avec une relation OneToMany)
+- ``Picture`` : contient les images des biens (relation OneToMany)
 - ``News`` : contient les articles d'actualité
+- ``Post`` : contient les posts utilisateurs associés aux articles d'actualité (relation OneToMany)
 - ``User`` : contient le compte administrateur
 
 ### Routes et Urls
@@ -51,3 +52,19 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 | _admin.news.edit_       | /admin/actualites/{id}/editer   | Page de modification d'un article |
 | _admin.news.delete_     | /admin/actualites/{id}/supprimer| Page de suppression d'un article |
 | _admin.picture.delete_  | /admin/images/{id}/supprimer    | Suppression d'une image |
+
+### Sécurité
+
+- Contrôle et validation des saisies utilisateurs (via les contraintes proposés par l'ORM Doctrine)
+- Authentification du rôle administrateur pour l'accès au back-office
+- Authentification par token CSRF pour les opérations sensibles
+- Hachage des mots de passe
+- Installation du certificat SSL (en local) pour sécuriser les connexions HTTPS (entre navigateur et serveur)
+
+### Identifiants Admin
+
+- Nom : admin
+- Mot de passe : admin729
+
+### Bugs à corriger
+

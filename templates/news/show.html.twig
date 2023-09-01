@@ -11,7 +11,7 @@
         <h1 class="text-center">{{ article.title }}</h1>
         <div class="my-3 text-center">
             <img src="{{ vich_uploader_asset(article, 'image_file') | imagine_filter('news_medium') }}"
-                alt="illustration de l'article" class="border border-secondary">
+                alt="illustration de l'article" class="border border-secondary bg-light">
         </div>
         <p class="fst-italic text-secondary text-center">Publié le {{ article.createdAt | date('d/m/Y \\à H\\hi') }}</p>
         <p class="fs-5">{{ article.text | nl2br }}</p>
