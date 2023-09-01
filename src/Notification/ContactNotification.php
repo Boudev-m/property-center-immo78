@@ -27,11 +27,17 @@ class ContactNotification
         //     // ->text($contact->getMessage())
         //     ->html(nl2br($contact->getMessage()));
 
+        // check if email is about a property
+        // There are 2 contact forms : one in show property page and other in contact page
+        $subject = ($contact->getProperty()) ?
+            'Nouveau message à propos de : ' . strtoupper($contact->getProperty()->getTitle()) :
+            'Nouveau message';
+
         // Create templated email for contact (email from user)
         $email = (new TemplatedEmail())
             ->from($contact->getEmail())
             ->to('contact@immo78.fr')
-            ->subject('Nouveau message à propos de : ' . strtoupper($contact->getProperty()->getTitle()))
+            ->subject($subject)
             // path of the Twig template to render
             ->htmlTemplate('emails/contact.html.twig')
             // pass variables (name => value) to the template
@@ -51,7 +57,7 @@ class ContactNotification
             ->context([
                 'firstName' => $contact->getFirstName(),
                 'lastName' => $contact->getLastName(),
-                'property_title' => strtoupper($contact->getProperty()->getTitle()),
+                'property_title' => strtoupper($contact->getProperty() ? $contact->getProperty()->getTitle() : ''),
             ]);
         $this->mailer->send($email);
     }

@@ -5,60 +5,60 @@
 {% block body %}
 
 <div class="container" style="max-width: 1020px;">
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% if not contactForm.vars.valid %}
+    <div class="alert alert-danger">Veuillez remplir correctement le formulaire.</div>
+    {% endif %}
+    <div class="row">
 
-    <section class="py-5 row align-items-center justify-content-between">
-        <div class="col">
-            <h4 id="property-title" class="m-0">Agence Immo78</h4>
-            <p>
-                3 avenue de la République<br>
-                78 200 Mantes la jolie
-            </p>
-            <p>
-                <u>Téléphone</u> : +33 01 00 02 03 04<br>
-                <u>Email</u> : standard@agence-immo78.fr
-            </p>
-            <p>
-                <u>Horaires d'ouverture</u> :<br>
-                Lundi au Vendredi : 8h30 - 17h <br>
-                Samedi : 8h30 - 13h <br>
-                Dimanche : fermé
+        <section class="py-5 row align-items-center justify-content-between">
+            <div class="col">
+                <h4 id="property-title" class="m-0">Agence Immo78</h4>
+                <p>
+                    3 avenue de la République<br>
+                    78 200 Mantes la jolie
+                </p>
+                <p>
+                    <u>Téléphone</u> : +33 01 00 02 03 04<br>
+                    <u>Email</u> : standard@agence-immo78.fr
+                </p>
+                <p>
+                    <u>Horaires d'ouverture</u> :<br>
+                    Lundi au Vendredi : 8h30 - 17h <br>
+                    Samedi : 8h30 - 13h <br>
+                    Dimanche : fermé
 
-            </p>
+                </p>
+            </div>
+
+            <div class="col-7">
+                <div id="map" class="border border-secondary" style="width: 100%; height: 350px;"
+                    data-lat="48.98941781701531" data-lng="1.7138369649702865"></div>
+            </div>
+        </section>
+
+        <div class="mb-5">
+            <h5><u>Une question ? Écrivez-nous et nous vous répondrons dans les plus brefs délais.</u></h5>
+            <p><span class="form-text">(Vos données ne seront pas partagées et resteront confidentielles)</span></p>
+            {{ form_start(contactForm) }}
+            <div class="row col-5">
+                <div class="col">{{ form_row(contactForm.lastName) }}</div>
+                <div class="col">{{ form_row(contactForm.firstName) }}</div>
+            </div>
+            <div class="row col-5">
+                <div class="col">{{ form_row(contactForm.phone) }}</div>
+                <div class="col">{{ form_row(contactForm.email) }}</div>
+            </div>
+            <div class="col col-7">{{ form_rest(contactForm) }}</div>
+            <div class="form-group">
+                <button class="btn btn-light rounded-0">Envoyer</button>
+            </div>
+            {{ form_end(contactForm) }}
+
         </div>
-
-        <div class="col-7">
-            <div id="map" class="border border-secondary" style="width: 100%; height: 350px;"
-                data-lat="48.98941781701531" data-lng="1.7138369649702865"></div>
-        </div>
-    </section>
-
-    <div>
-        <h5><u>Une question ? Écrivez-nous et nous vous répondrons dans les plus brefs délais.</u></h5>
-        <p><span class="form-text">(Vos données ne seront pas partagées et resteront confidentielles)</span></p>
-        <form class="form contact" action="#" id="contact-form" method="post">
-            <div class="m-0 col-5">
-                <label for="name" class="form-label m-0">Nom</label>
-                <input type="text" class="form-control rounded-0 bg-light" id="name" name="name">
-            </div>
-            <div class="m-0 col-5">
-                <label for="email" class="form-label m-0">Adresse email</label>
-                <input type="email" class="form-control rounded-0 bg-light" id="email" name="email">
-            </div>
-            <div class="m-0 col-5">
-                <label for="phone" class="form-label m-0">Téléphone</label>
-                <input type="tel" class="form-control rounded-0 bg-light" id="phone" name="phone">
-            </div>
-            <div class="m-0 col-7">
-                <label for="message">Message</label>
-                <textarea class="form-control rounded-0 bg-light" placeholder=". . ." id="message"
-                    name="message"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-secondary my-4">Envoyer</button>
-        </form>
-
     </div>
-</div>
 
 </div>
 {% endblock %}

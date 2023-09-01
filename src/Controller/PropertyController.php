@@ -87,7 +87,7 @@ class PropertyController extends AbstractController
 
             // Send mail
             $notification->notify($contact);
-            $this->addFlash('success', 'Votre message a bien été envoyé.');
+            $this->addFlash('success', 'Votre message a bien été envoyé. Nous vous contacterons dès que possible.');
             // return $this->redirectToRoute(
             //     'property.show',
             //     [
