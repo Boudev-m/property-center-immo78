@@ -64,19 +64,19 @@
                 style="display: none;" {% endif %}>Contacter l'agence</a>
 
             <div id="contactForm" {% if not contactForm.vars.submitted %}style="display: none;" {% endif %}>
-                <div class="p-3 border border-secondary" style='background: #afd2d3;position: absolute;z-index: 1;'>
+                <div class="p-3 bg-secondary" style='position: absolute;z-index: 1;'>
                     {{ form_start(contactForm) }}
-                    <div class="row">
+                    <div class="row text-light">
                         <div class="col">{{ form_row(contactForm.firstName) }}</div>
                         <div class="col">{{ form_row(contactForm.lastName) }}</div>
                     </div>
-                    <div class="row">
+                    <div class="row text-light">
                         <div class="col">{{ form_row(contactForm.phone) }}</div>
                         <div class="col">{{ form_row(contactForm.email) }}</div>
                     </div>
-                    <div class="col">{{ form_rest(contactForm) }}</div>
+                    <div class="col text-light">{{ form_rest(contactForm) }}</div>
                     <div class="form-group">
-                        <button class="btn btn-secondary rounded-0">Envoyer</button>
+                        <button class="btn btn-light rounded-0">Envoyer</button>
                         <button class="btn btn-danger rounded-0" id="cancelButton">Annuler</button>
                     </div>
                     {{ form_end(contactForm) }}
