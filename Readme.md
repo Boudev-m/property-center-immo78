@@ -107,25 +107,25 @@ Comportement attendu : retourner sur le formulaire et afficher un message d'erre
 ### Rendu visuel
 
 ##### Accueil :  
-<img src="https://i.ibb.co/DW0wcCT/home.webp" width="500px">
+<img src="https://i.ibb.co/DW0wcCT/home.webp" width="500px" loading="lazy">
 
 ##### Les biens :  
-<img src="https://i.ibb.co/KNVjQfN/index-property.webp" width="500px">
+<img src="https://i.ibb.co/KNVjQfN/index-property.webp" width="500px" loading="lazy">
 
 ##### Un bien :  
-<img src="https://i.ibb.co/CzdXzR5/show-property.webp" width="500px">
+<img src="https://i.ibb.co/CzdXzR5/show-property.webp" width="500px" loading="lazy">
 
 ##### Contact :  
-<img src="https://i.ibb.co/30PZvB1/contact.webp" width="500px">
+<img src="https://i.ibb.co/30PZvB1/contact.webp" width="500px" loading="lazy">
 
 ##### L'actualité :  
-<img src="https://i.ibb.co/1qbLcZX/index-news.webp" width="500px">
+<img src="https://i.ibb.co/1qbLcZX/index-news.webp" width="500px" loading="lazy">
 
 ##### Un article d'actu :  
-<img src="https://i.ibb.co/stdtVmD/show-news.webp" width="500px">
+<img src="https://i.ibb.co/stdtVmD/show-news.webp" width="500px" loading="lazy">
 
 ##### Gérer les biens :
-<img src="https://i.ibb.co/jMgPsRN/admin-index-property.webp" width="500px">
+<img src="https://i.ibb.co/jMgPsRN/admin-index-property.webp" width="500px" loading="lazy">
 
 ##### Editer un bien :
-<img src="https://i.ibb.co/hfKLfKf/admin-edit-property.webp" width="500px">
+<img src="https://i.ibb.co/hfKLfKf/admin-edit-property.webp" width="500px" loading="lazy">
