@@ -26,7 +26,7 @@
                     <div class="carousel-item {% if picture == property.firstPicture %}active{% endif %}">
                         <a href="{{ vich_uploader_asset(picture, 'imageFile') }}">
                             <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('property_medium') }}"
-                                alt="Image du bien" style="max-width: 100%;">
+                                alt="Photo du bien" style="max-width: 100%;">
                         </a>
                     </div>
                     {% endfor %}

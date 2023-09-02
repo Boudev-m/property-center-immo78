@@ -7,7 +7,7 @@
         <a href="{{ path('property.show', {slug: property.slug, id: property.id }) }}">
             {% if property.firstPicture %}
             <img src="{{ vich_uploader_asset(property.firstPicture, 'imageFile') | imagine_filter('property_thumb') }}"
-                class="card-img-top" alt="..." width="100%" height="auto">
+                class="card-img-top" alt="Photo du bien" width="100%" height="auto">
             {% else %}
             <img src="{{ '/images/properties/no-image.png' | imagine_filter('property_thumb') }}" class="card-img-top"
                 alt="no-image.png" width="100%" height="auto">
