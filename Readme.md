@@ -107,25 +107,25 @@ Comportement attendu : retourner sur le formulaire et afficher un message d'erre
 ### Rendu visuel
 
 ##### Accueil :  
-<img src="https://i.ibb.co/9phqGGw/home.png" width="500px">
+<img src="https://i.ibb.co/DW0wcCT/home.webp" width="500px">
 
 ##### Les biens :  
-<img src="https://i.ibb.co/xLc4cdg/index-property.png" width="500px">
+<img src="https://i.ibb.co/KNVjQfN/index-property.webp" width="500px">
 
 ##### Un bien :  
-<img src="https://i.ibb.co/K0mbkPp/show-property.png" width="500px">
+<img src="https://i.ibb.co/CzdXzR5/show-property.webp" width="500px">
 
 ##### Contact :  
-<img src="https://i.ibb.co/zHtpVBd/contact.png" width="500px">
+<img src="https://i.ibb.co/30PZvB1/contact.webp" width="500px">
 
 ##### L'actualité :  
-<img src="https://i.ibb.co/0KwJSMW/index-news.png" width="500px">
+<img src="https://i.ibb.co/1qbLcZX/index-news.webp" width="500px">
 
 ##### Un article d'actu :  
-<img src="https://i.ibb.co/fpkkMP3/show-news.png" width="500px">
+<img src="https://i.ibb.co/stdtVmD/show-news.webp" width="500px">
 
 ##### Gérer les biens :
-<img src="https://i.ibb.co/Bn0fLx4/admin-index-property.png" width="500px">
+<img src="https://i.ibb.co/jMgPsRN/admin-index-property.webp" width="500px">
 
 ##### Editer un bien :
-<img src="https://i.ibb.co/qr8Kk2z/admin-edit-property.png" width="500px">
+<img src="https://i.ibb.co/hfKLfKf/admin-edit-property.webp" width="500px">
