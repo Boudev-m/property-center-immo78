@@ -18,6 +18,26 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 ### Environnement de développement
 ```Windows``` ```Visual Studio Code``` ```WAMP```
 
+### Installation et exécution de l'application
+``-``
+    
+### Composition du projet
+``-``
+  
+### Dépendances liées a l'application
+``cocur/slugify`` : pour créer des urls clean  
+``fakerphp/faker`` : générer des données factices  
+``knplabs/knp-paginator-bundle`` : lister les biens sur plusieurs pages  
+``vich/uploader-bundle`` : gérer les images importées  
+``liip/imagine-bundle`` : redimensionner les images et les mettre en cache  
+``symfony/webpack-encore-bundle`` : intégrer webpack qui sert à gérer et compiler les assets (Js,Css,...)  
+``beberlei/doctrineextensions=dev-master`` : ajouter des fonctions DQL à Doctrine (Sin,Cos,Pi,...)  
+``twig/cache-extra`` : mettre des templates twig en cache  
+``twig/string-extra`` : accéder à des filtres supplémentaire dans les templates twig  
+  
+``@placekit/autocomplete-js`` : Recherche et autocomplétion d'adresses en utilisant l'API placekit (adresses,code postal,ville,latitude,longitude)  
+``leaflet`` : création et personnalisation de maps  
+
 ### Entités en base de données
 - ``Property`` : contient les biens
 - ``Option`` : contient les options des biens (avec une relation ManyToMany)
@@ -53,6 +73,9 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 | _admin.news.delete_     | /admin/actualites/{id}/supprimer| Page de suppression d'un article |
 | _admin.picture.delete_  | /admin/images/{id}/supprimer    | Suppression d'une image |
 
+*{id} : identifiant de l'objet*  
+*{slug} : titre de l'objet remanié pour créer une url propre et mieux référencé*
+
 ### Sécurité
 
 - Contrôle et validation des saisies utilisateurs (via les contraintes proposés par l'ORM Doctrine)
@@ -61,10 +84,48 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 - Hachage des mots de passe
 - Installation du certificat SSL (en local) pour sécuriser les connexions HTTPS (entre navigateur et serveur)
 
-### Identifiants Admin
+<!-- ### Identifiants Admin
 
 - Nom : admin
-- Mot de passe : admin729
+- Mot de passe : admin729 -->
 
 ### Bugs à corriger
+#1 : Dans la page de création/modifiation d'un bien, l'upload d'un fichier image autre que JPG ou PNG provoque une erreur avec le bundle Liip.  
+``Liip\ImagineBundle\Templating\LazyFilterRuntime::filter(): Argument #1 ($path) must be of type string, null given, called in C:\wamp64\www\Immo78\var\cache\dev\twig\a5\a528cdb7dfadd924c40aadb124a80da9.php on line 104``  
+Comportement attendu : retourner sur le formulaire et afficher un message d'erreur 'Format d'image invalide. Format(s) accepté(s) : JPG, PNG'
 
+### Axes d'amélioration
+- design responsiv pour les petits écrans
+- mettre le systeme de recherche de biens en page d'accueil
+- ajouter un bouton pour réinitialiser le filtre de recherche
+- ajouter la possibilité de créer un autre compte utilisateur ou modifier un compte existant
+- afficher les resultats des biens pendant la recherche par filtre, sans actualiser la page, en temps réel (avec JS)
+- ajouter la gestion des posts
+- ajouter la possibilité de commenter un post (= création d'une nouvelle entité)
+- créer des tests pour chaque fonctionnalité
+
+### Rendu visuel
+
+##### Accueil :  
+<img src="https://i.ibb.co/9phqGGw/home.png" width="500px">
+
+##### Les biens :  
+<img src="https://i.ibb.co/xLc4cdg/index-property.png" width="500px">
+
+##### Un bien :  
+<img src="https://i.ibb.co/K0mbkPp/show-property.png" width="500px">
+
+##### Contact :  
+<img src="https://i.ibb.co/zHtpVBd/contact.png" width="500px">
+
+##### L'actualité :  
+<img src="https://i.ibb.co/0KwJSMW/index-news.png" width="500px">
+
+##### Un article d'actu :  
+<img src="https://i.ibb.co/fpkkMP3/show-news.png" width="500px">
+
+##### Gérer les biens :
+<img src="https://i.ibb.co/Bn0fLx4/admin-index-property.png" width="500px">
+
+##### Editer un bien :
+<img src="https://i.ibb.co/qr8Kk2z/admin-edit-property.png" width="500px">
