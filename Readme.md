@@ -19,7 +19,27 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 ```Windows``` ```Visual Studio Code``` ```WAMP```
 
 ### Installation et exécution de l'application
-``-``
+Prérequis : ``Symfony CLI`` ``MySQL`` ``NPM``  
+Notes : Le gestionnaire Composer est inclus dans Symfony CLI.  
+Vous pouvez installer WAMP pour Windows et avoir accès à phpmyadmin pour gérer des bases de données MySQL.  
+Pour avoir NPM, il faut installer NodeJs.  
+
+Suivre les étapes suivantes :  
+- Ouvrir un terminal et cloner le depôt avec la commande ``git clone https://github.com/BouiMust/property-center-immo78``
+
+- Se déplacer à la racine du dossier ``cd property-center-immo78`` puis créer le fichier .env à partir du fichier d'exemple ``cp .env.example .env``. Dans ce fichier .env, mettre le lien url vers votre base de données et le lien vers votre serveur Smtp.
+
+- Créer votre base de données en important le fichier database.sql dans MySQL
+
+- Installer les dépendances du projet avec la commande ``symfony composer install``
+
+- Installer les dépendances NPM avec ``npm install`` 
+
+- Lancer l'application en utilisant le serveur Symfony avec  ``symfony serve``
+
+- Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev-server``
+
+*Le site sera accessible à l'adresse ``https://localhost:8000/``*
     
 ### Composition du projet
 ``-``
@@ -84,10 +104,10 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 - Hachage des mots de passe
 - Installation du certificat SSL (en local) pour sécuriser les connexions HTTPS (entre navigateur et serveur)
 
-<!-- ### Identifiants Admin
+### Identifiants Admin
 
 - Nom : admin
-- Mot de passe : admin729 -->
+- Mot de passe : admin729
 
 ### Bugs à corriger
 #1 : Dans la page de création/modifiation d'un bien, l'upload d'un fichier image autre que JPG ou PNG provoque une erreur avec le bundle Liip.  
