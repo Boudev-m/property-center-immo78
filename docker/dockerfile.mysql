@@ -1,0 +1,21 @@
+# Docker file to create a custom docker image with some configurations
+
+# Use a MySQL image as base
+FROM mysql:5.7.36
+# to check : create interactive container with bash and > mysql --version
+
+# Import datas backup into the mysql image
+# This is the entrypoint folder : When the container will be started,
+# The backup will be restored automatically in MySQL database
+COPY ./database.sql /docker-entrypoint-initdb.d/
+
+# Copy from local system to the container (useless cmd)
+# Script file to restore backup
+# COPY ./docker/restore_backup_script.sh /docker-entrypoint-initdb.d/
+
+# Permission to execute the script into the container (useless cmd)
+# RUN chmod +x /docker-entrypoint-initdb.d/restore_backup_script.sh
+
+# Execute command when the container is started (useless cmd)
+# CMD ["/docker-entrypoint-initdb.d/restore_backup_script.sh"]
+# ENTRYPOINT ["/docker-entrypoint-initdb.d/restore_backup_script.sh"]

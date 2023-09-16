@@ -1,0 +1,59 @@
+# The file is used to create containers
+version: '3'
+
+services:
+
+  # Service MySQL
+  database-mysql:
+    image: mysql
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: immo78          # create database in the container
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      # MYSQL_USER: root
+      # MYSQL_ROOT_PASSWORD: rootpassword # root password MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql     # mysql-data = volume name
+    ports:
+      - "3306:3306"                   # MySQL port
+    networks:
+      - dev
+  # MySQL
+
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:5.2.1           # image will be created if not exists
+    container_name: phpmyadmin
+    restart: always
+    links:
+      - database-mysql                # Linked to MySQL service
+    depends_on:                       # wait mysql container loading before start
+      - database-mysql 
+    ports:
+      - 8081:80                       # PhpMyAdmin port
+    environment:
+      PMA_HOST: database-mysql
+    networks:
+      - dev
+  # PhpMyAdmin
+
+
+  # Symfony app
+  app:
+    image: php-apache
+    container_name: symfony-app
+    environment:
+      DATABASE_URL: mysql://root:@database-mysql:3306/immo78?charset=utf8mb4   # host = mysql service name
+    ports: 
+      - "8080:80"
+    networks:
+      - dev
+  # Symfony app
+
+volumes:
+  mysql-data:
+
+networks:
+  dev:
