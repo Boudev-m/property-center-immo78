@@ -20,27 +20,34 @@ Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines e
 
 ### Installation et exécution de l'application
 Prérequis : ``Symfony CLI`` ``MySQL`` ``NPM``  
-Notes : Le gestionnaire Composer est inclus dans Symfony CLI.  
-Vous pouvez installer WAMP pour Windows et avoir accès à phpmyadmin pour gérer des bases de données MySQL.  
-Pour avoir NPM, il faut installer NodeJs.  
-
+Notes : Le gestionnaire Composer est inclus dans Symfony CLI : https://symfony.com/download   
+Vous pouvez installer WAMP pour Windows, vous aurez un serveur MySQL et PhpMyAdmin pour gérer les bases de données : https://www.wampserver.com/   
+Pour avoir NPM, il faut installer NodeJs : https://nodejs.org/ (choisir la version LTS)  
+  
 Suivre les étapes suivantes :  
 - Ouvrir un terminal et cloner le depôt avec la commande ``git clone https://github.com/BouiMust/property-center-immo78``
 
 - Se déplacer à la racine du dossier ``cd property-center-immo78`` puis créer le fichier .env à partir du fichier d'exemple ``cp .env.example .env``. Dans ce fichier .env, mettre le lien url vers votre base de données et le lien vers votre serveur Smtp.
-
 - Créer votre base de données en important le fichier database.sql dans MySQL
-
 - Installer les dépendances du projet avec la commande ``symfony composer install``
-
 - Installer les dépendances NPM avec ``npm install`` 
-
 - Lancer l'application en utilisant le serveur Symfony avec  ``symfony serve``
-
 - Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev-server``
 
-*Le site sera accessible à l'adresse ``https://localhost:8000/``*
+*Le site sera accessible à l'adresse https://localhost:8000/*.
     
+### Installation et exécution avec Docker
+Prérequis : ``Docker Desktop`` ``Linux``  
+Suivre les étapes suivantes :  
+- Cloner le dépôt
+
+- Exécuter Docker Desktop
+- Ouvrir un terminal à la racine du dossier et taper la commande ``bash run-app.sh`` (ou ``start run-app.sh`` sur Powershell)
+- Attendre, cela peut prendre plusieurs minutes...
+
+*L'application devrait démarrer. Aller sur http://localhost:8080/. PhpMyAdmin est disponible sur le port 8081.*
+
+
 ### Composition du projet
 ``-``
   
@@ -103,6 +110,7 @@ Suivre les étapes suivantes :
 - Authentification par token CSRF pour les opérations sensibles
 - Hachage des mots de passe
 - Installation du certificat SSL (en local) pour sécuriser les connexions HTTPS (entre navigateur et serveur)
+- Utilisation des variables d'environnement pour l'url de connexion à la BDD et celle du serveur Smtp pour l'envoi d'email
 
 ### Identifiants Admin
 
