@@ -51,7 +51,8 @@ class PictureRepository extends ServiceEntityRepository
         $pictures = $this->createQueryBuilder('pic')
             ->select('pic')
             ->where('pic.property IN (:properties)')
-            ->groupBy('pic.property')
+            ->groupBy('pic.id', 'pic.property')
+            ->orderBy('pic.id', 'DESC')
             ->getQuery()
             ->setParameter('properties', $properties)
             ->getResult();
@@ -74,7 +75,8 @@ class PictureRepository extends ServiceEntityRepository
         $pictures = $this->createQueryBuilder('pic')
             ->select('pic')
             ->where('pic.property IN (:property)')
-            ->groupBy('pic.property')
+            ->groupBy('pic.id', 'pic.property')
+            ->orderBy('pic.id', 'DESC')
             ->getQuery()
             ->setParameter('property', $property)
             ->getResult();
