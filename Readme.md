@@ -33,7 +33,7 @@ Suivre les étapes suivantes :
 - Taper la commande ``symfony console d:d:c`` pour créer votre base de données
 - Restaurer les données en important le fichier database.sql via PhphMyAdmin
 - Lancer l'application en utilisant le serveur Symfony avec  ``symfony serve``
-- Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev-server``
+- Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev``
 
 *Le site sera accessible à l'adresse https://localhost:8000/*.
     
@@ -84,8 +84,8 @@ Suivre les étapes suivantes :
 | _property.show_         | /biens/{id}-{slug}            | Page affichant un bien en détail |
 | _news.index_            | /actualites                   | Page listant les articles d'actualités |
 | _news.show_             | /actualites/{id}-{slug}       | Page affichant un article |
-| _login_                 | /login, /admin                | Page de connexion |
-| _logout_                | /logout                       | Déconnexion |
+| _login_                 | /connexion                    | Page de connexion |
+| _logout_                | /deconnexion                  | Déconnexion |
 | **(Back-office)** |
 | _admin.property.index_  | /admin/biens                  | Page listant tous les biens (vendus ou non) |
 | _admin.property.new_    | /admin/biens/{id}/editer      | Page de création d'un bien |
@@ -100,6 +100,7 @@ Suivre les étapes suivantes :
 | _admin.news.edit_       | /admin/actualites/{id}/editer   | Page de modification d'un article |
 | _admin.news.delete_     | /admin/actualites/{id}/supprimer| Page de suppression d'un article |
 | _admin.picture.delete_  | /admin/images/{id}/supprimer    | Suppression d'une image |
+| _admin.register_        | /admin/inscription              | Inscription d'un compte utilisateur |
 
 *{id} : identifiant de l'objet*  
 *{slug} : titre de l'objet remanié pour créer une url propre et mieux référencé*
