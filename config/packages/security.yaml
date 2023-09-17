@@ -19,12 +19,13 @@ security:
         main:
             lazy: true
             provider: users
-            # http_basic: ~
-            form_login:
-                check_path: login
+            custom_authenticator: App\Security\UsersAuthenticator
             logout:
-                path: /logout
+                path: /deconnexion
                 target: /
+            # http_basic: ~
+            # form_login:
+                # check_path: login
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

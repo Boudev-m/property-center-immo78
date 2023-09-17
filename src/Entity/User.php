@@ -61,7 +61,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
     }
     public function getUserIdentifier(): string
     {
-        return 'DeMo';
+        return $this->getUsername();
     }
 
     // Serializable methods

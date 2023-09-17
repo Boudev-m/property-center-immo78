@@ -9,22 +9,32 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(['/login', 'admin'], name: 'login')]
+    #[Route('/connexion', name: 'login')]
     public function login(AuthenticationUtils $authUtils): Response
     {
-        $lastUserName = $authUtils->getLastUsername();      // get last username from input user
-        $error = $authUtils->getLastAuthenticationError();  // get error auth
+        // check if an user is logged, redirect to home (or dashboard if the user is admin)
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('home');
+        // }
+
+        // get login error if there is one
+        $error = $authUtils->getLastAuthenticationError();
+        // get last username entered by the user
+        $lastUserName = $authUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUserName,
             'error' => $error
         ]);
     }
 
-    #[Route('/logout', name: 'logout')]
-    public function logout(): Response
+
+    #[Route('/deconnexion', name: 'logout')]
+    public function logout(): void
     {
-        return $this->render('home/index.html.twig');
+        // return $this->redirectToRoute('home');
+        // This method can be blank - it will be intercepted by the logout key on your firewall.
     }
+
 
     // #[Route('/registration', name: 'registration')]
     // public function registration(UserPasswordHasherInterface $passwordHasher)
@@ -42,4 +52,5 @@ class SecurityController extends AbstractController
 
     //     return $this->render('security/registration.html.twig');
     // }
+
 }
