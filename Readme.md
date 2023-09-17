@@ -28,9 +28,10 @@ Suivre les étapes suivantes :
 - Ouvrir un terminal et cloner le depôt avec la commande ``git clone https://github.com/BouiMust/property-center-immo78``
 
 - Se déplacer à la racine du dossier ``cd property-center-immo78`` puis créer le fichier .env à partir du fichier d'exemple ``cp .env.example .env``. Dans ce fichier .env, mettre le lien url vers votre base de données et le lien vers votre serveur Smtp.
-- Créer votre base de données en important le fichier database.sql dans MySQL
 - Installer les dépendances du projet avec la commande ``symfony composer install``
-- Installer les dépendances NPM avec ``npm install`` 
+- Installer les dépendances NPM avec ``npm install``
+- Taper la commande ``symfony console d:d:c`` pour créer votre base de données
+- Restaurer les données en important le fichier database.sql via PhphMyAdmin
 - Lancer l'application en utilisant le serveur Symfony avec  ``symfony serve``
 - Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev-server``
 
