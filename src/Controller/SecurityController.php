@@ -2,13 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegistrationFormType;
+use App\Security\UsersAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
+
+
     #[Route('/connexion', name: 'login')]
     public function login(AuthenticationUtils $authUtils): Response
     {
@@ -36,21 +45,35 @@ class SecurityController extends AbstractController
     }
 
 
-    // #[Route('/registration', name: 'registration')]
-    // public function registration(UserPasswordHasherInterface $passwordHasher)
-    // {
-    //     // // ... e.g. get the user data from a registration form
-    //     // $user = new User();
-    //     // $plaintextPassword = 'ok';
+    #[Route('/admin/inscription', name: 'admin.register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
 
-    //     // // hash the password (based on the security.yaml config for the $user class)
-    //     // $hashedPassword = $passwordHasher->hashPassword(
-    //     //     $user,
-    //     //     $plaintextPassword
-    //     // );
-    //     // $user->setPassword($hashedPassword);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
 
-    //     return $this->render('security/registration.html.twig');
-    // }
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
 
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+
+        return $this->render('admin/security/registration.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 }
