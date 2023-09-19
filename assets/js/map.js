@@ -28,9 +28,9 @@ export default class Map {
 
         // Icon in the map
         let mapIcon = L.icon({
-            iconUrl: '/images/icons/marker-icon-2x.png',
-            iconSize: [24, 50],
-            iconAnchor: [8, 49],
+            iconUrl: '/assets/icons/marker-icon-2x.png',
+            iconSize: [28, 50],
+            iconAnchor: [12, 49],
             popupAnchor: [3, -46]
         });
 
