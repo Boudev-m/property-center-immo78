@@ -18,3 +18,26 @@
         opacity: 1;
     }
 }
+
+main {
+    /* fix footer at the bottom of screen */
+    min-height: 64.4vh;
+}
+
+#options {
+    display: flex;
+}
+
+#options>.form-check {
+    margin: 0 5px;
+}
+
+td,
+th {
+    background-color: transparent !important;
+}
+
+.alert-success {
+    background-color: rgb(0, 181, 0) !important;
+    color: #FFF !important;
+}
