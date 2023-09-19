@@ -33,7 +33,7 @@ class OptionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $optionRepository->save($option, true);
-
+            $this->addFlash('success', 'Option ajoutée avec succès.');
             return $this->redirectToRoute('admin.option.index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -55,14 +55,14 @@ class OptionController extends AbstractController
 
     // Edit one option
     #[Route('/options/{id}/editer', name: 'admin.option.edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Option $option, OptionRepository $optionRepository): Response
+    public function edit(string $id, Request $request, Option $option, OptionRepository $optionRepository): Response
     {
         $form = $this->createForm(OptionType::class, $option);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $optionRepository->save($option, true);
-
+            $this->addFlash('success', "Option n°$id editée avec succès.");
             return $this->redirectToRoute('admin.option.index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -78,6 +78,7 @@ class OptionController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $option->getId(), $request->request->get('_token'))) {
             $optionRepository->remove($option, true);
+            $this->addFlash('success', 'Option supprimée avec succès.');
         }
 
         return $this->redirectToRoute('admin.option.index', [], Response::HTTP_SEE_OTHER);

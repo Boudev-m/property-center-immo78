@@ -45,14 +45,14 @@ class NewsController extends AbstractController
 
     // Edit one news article
     #[Route('/actualites/{id}/editer', name: 'admin.news.edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, News $article, NewsRepository $newsRepository): Response
+    public function edit(string $id, Request $request, News $article, NewsRepository $newsRepository): Response
     {
         $form = $this->createForm(NewsType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newsRepository->save($article, true);
-            $this->addFlash('success', 'Article modifié avec succès.');
+            $this->addFlash('success', "Article n°$id modifié avec succès.");
             return $this->redirectToRoute('admin.news.index');
         }
 
