@@ -8,6 +8,9 @@
 
 <div class="container" style="max-width: 1020px;">
 
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success my-3">{{ message }}</div>
+    {% endfor %}
 
     <!-- INTRO BLOCK -->
     <section class="py-4 row align-items-center">
