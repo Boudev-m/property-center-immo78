@@ -116,6 +116,7 @@ Suivre les étapes suivantes :
 
 ### Identifiants Admin
 
+https://localhost:8000/connexion  
 - Nom : admin
 - Mot de passe : admin729
 
