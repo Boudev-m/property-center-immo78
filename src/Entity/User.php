@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]  ## for PgSQL compatibility
 #[UniqueEntity(fields: ['username'], message: 'Il y a déjà un compte avec ce nom.')]
 class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface
 {
