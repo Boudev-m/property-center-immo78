@@ -33,7 +33,7 @@ Suivre les étapes suivantes :
 - Installer les dépendances du projet avec la commande ``symfony composer install``
 - Installer les dépendances NPM avec ``npm install``
 - Taper la commande ``symfony console d:d:c`` pour créer votre base de données
-- Restaurer les données en important le fichier database.sql via PhphMyAdmin
+- Restaurer les données en important le fichier backup_mysql.sql via PhphMyAdmin
 - Lancer l'application en utilisant le serveur Symfony avec  ``symfony serve``
 - Ouvrir un 2ème terminal. Lancer le serveur node et compiler les assets (fichiers JS et CSS) avec ``npm run dev``
 
