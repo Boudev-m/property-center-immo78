@@ -278,9 +278,9 @@ CREATE TABLE IF NOT EXISTS `post` (
 INSERT INTO `post` (`id`, `news_id`, `user_name`, `text`, `created_at`) VALUES
 (1, 12, 'Martin', 'Molestiae voluptatem nihil rerum illo et voluptatem. Aliquid esse sit dolor neque voluptas consequatur totam. Officiis odit molestias dicta explicabo perspiciatis dolorum earum quasi. Dignissimos quo ut voluptas quod.', '2023-08-31 13:45:04'),
 (2, 12, 'Richard', 'Beatae ut impedit libero aut sint.Aperiam quo atque minus. Est neque corrupti laboriosam iusto magni explicabo aliquam.\nConsequatur repudiandae soluta est qui facere delectus error.', '2023-08-31 14:17:44'),
-(4, 10, 'BouiMust', 'Iste et tempore cum tenetur veniam culpa.Ut et esse ipsum.\r\n\r\nRerum excepturi non qui sunt. Eos omnis eos alias. Iusto sit necessitatibus architecto adipisci quibusdam repudiandae.\r\n\r\nHic nisi et in vel fug..', '2023-08-31 19:05:28'),
+(4, 10, 'boudev', 'Iste et tempore cum tenetur veniam culpa.Ut et esse ipsum.\r\n\r\nRerum excepturi non qui sunt. Eos omnis eos alias. Iusto sit necessitatibus architecto adipisci quibusdam repudiandae.\r\n\r\nHic nisi et in vel fug..', '2023-08-31 19:05:28'),
 (5, 10, 'Azerty', 'Très bon article.', '2023-08-31 19:16:01'),
-(6, 15, 'Bouimust', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium mollitia cumque nobis dolores enim laborum, tempore dolor sequi.', '2023-09-01 07:21:03');
+(6, 15, 'boudev', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium mollitia cumque nobis dolores enim laborum, tempore dolor sequi.', '2023-09-01 07:21:03');
 
 -- --------------------------------------------------------
 

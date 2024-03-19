@@ -1,9 +1,6 @@
 ## Immo78
   
-Lien du site : **https://immo78.bouimust.com**
-  
-### Objectif
-Créer un site web pour l'agence immobilière Immo78 située dans les Yvelines et proposant des biens immobiliers à la vente. Ce qui permettra à l'agence d'accroître sa visibilité dans la région et d'augmenter le nombre d'acheteurs potentiels.
+Objectif : créer un site web pour l'agence immobilière Immo78 située dans les Yvelines et proposant des biens immobiliers à la vente. Ce qui permettra à l'agence d'accroître sa visibilité dans la région et d'augmenter le nombre d'acheteurs potentiels.
 
 ### Fonctionnalités globales
 - Afficher les biens en vente et leurs informations
@@ -27,7 +24,7 @@ Vous pouvez installer WAMP pour Windows, vous aurez un serveur MySQL et PhpMyAdm
 Pour avoir NPM, il faut installer NodeJs : https://nodejs.org/ (choisir la version LTS)  
   
 Suivre les étapes suivantes :  
-- Ouvrir un terminal et cloner le depôt avec la commande ``git clone https://github.com/BouiMust/property-center-immo78``
+- Ouvrir un terminal et cloner le depôt avec la commande ``git clone https://github.com/boudev-m/property-center-immo78``
 
 - Se déplacer à la racine du dossier ``cd property-center-immo78`` puis créer le fichier .env à partir du fichier d'exemple ``cp .env.example .env``. Dans ce fichier .env, mettre le lien url vers votre base de données et le lien vers votre serveur Smtp.
 - Installer les dépendances du projet avec la commande ``symfony composer install``
