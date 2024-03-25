@@ -4,12 +4,13 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/public/images/
+# /public/bundles/
+# /public/images/
 /var/
 /vendor/
 /notes.txt
 /docker/restore_backup_script.sh
+/prod/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

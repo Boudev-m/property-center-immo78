@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : sam. 02 sep. 2023 à 19:51
--- Version du serveur : 5.7.36
--- Version de PHP : 8.1.11
+-- Host: mysql-bouimust.alwaysdata.net
+-- Generation Time: Mar 25, 2024 at 12:43 PM
+-- Server version: 10.6.16-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `immo78`
+-- Database: `bouimust_immo78`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `doctrine_migration_versions`
+-- Table structure for table `doctrine_migration_versions`
 --
 
-DROP TABLE IF EXISTS `doctrine_migration_versions`;
-CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) NOT NULL,
   `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `execution_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
--- Déchargement des données de la table `doctrine_migration_versions`
+-- Dumping data for table `doctrine_migration_versions`
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
@@ -60,26 +58,21 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- --------------------------------------------------------
 
 --
--- Structure de la table `messenger_messages`
+-- Table structure for table `messenger_messages`
 --
 
-DROP TABLE IF EXISTS `messenger_messages`;
-CREATE TABLE IF NOT EXISTS `messenger_messages` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `messenger_messages` (
+  `id` bigint(20) NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`),
-  KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
-  KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
-  KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `messenger_messages`
+-- Dumping data for table `messenger_messages`
 --
 
 INSERT INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `created_at`, `available_at`, `delivered_at`) VALUES
@@ -137,22 +130,20 @@ INSERT INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `create
 -- --------------------------------------------------------
 
 --
--- Structure de la table `news`
+-- Table structure for table `news`
 --
 
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE IF NOT EXISTS `news` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `text` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `text` longtext NOT NULL,
+  `image_name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `news`
+-- Dumping data for table `news`
 --
 
 INSERT INTO `news` (`id`, `title`, `text`, `image_name`, `created_at`, `updated_at`) VALUES
@@ -165,18 +156,16 @@ INSERT INTO `news` (`id`, `title`, `text`, `image_name`, `created_at`, `updated_
 -- --------------------------------------------------------
 
 --
--- Structure de la table `option`
+-- Table structure for table `option`
 --
 
-DROP TABLE IF EXISTS `option`;
-CREATE TABLE IF NOT EXISTS `option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `option` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `option`
+-- Dumping data for table `option`
 --
 
 INSERT INTO `option` (`id`, `name`) VALUES
@@ -190,20 +179,17 @@ INSERT INTO `option` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `picture`
+-- Table structure for table `picture`
 --
 
-DROP TABLE IF EXISTS `picture`;
-CREATE TABLE IF NOT EXISTS `picture` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `picture` (
+  `id` int(11) NOT NULL,
   `property_id` int(11) NOT NULL,
-  `image_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_16DB4F89549213EC` (`property_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `image_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `picture`
+-- Dumping data for table `picture`
 --
 
 INSERT INTO `picture` (`id`, `property_id`, `image_name`) VALUES
@@ -235,44 +221,41 @@ INSERT INTO `picture` (`id`, `property_id`, `image_name`) VALUES
 (40, 91, '9fa12d859b8c6919a626c1c8ae72863c-uncropped-scaled-within-1536-1152-64f10d4db15c6610176596.webp'),
 (41, 91, '774d0c2a8558490e6fc3df185afdf13d-uncropped-scaled-within-1536-1152-64f10d4db3f52057650377.webp'),
 (42, 91, '08792dd1d24a9720936c45e3700bb321-uncropped-scaled-within-1536-1152-64f10d4db61d6384508713.webp'),
-(43, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnhlmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f176bd0f3e2923606246.webp'),
-(44, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnilmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f17733e3f28827169081.webp'),
-(45, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnjlmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f17733e5c19048056215.webp'),
-(46, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnklmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f17733e7943942021167.webp'),
-(47, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnmlmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f17733e9ca1381655183.webp'),
-(48, 92, 'l29mzmljztcvbgfkcmvzc2vbyzmtmda4l2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmi84lzevoc8ylzmvmtmyode4mjnnlmpwzz9eqvrftufkpti2lza0lziwmjmtmtu6mjg6mtkmmjaymza5mdewnjm2mjm-rct-64f17733eb976183103806.webp'),
-(49, 93, 'l29mzmljztcvbgfkcmvzc2vbyzmtmzeyl2nhdgfsb2cvaw1hz2vzl3byx3dlyi8xlzmvmy81lzavmy85lzivmtmzntazotjilmpwzz9eqvrftufkptmxlza4lziwmjmtmtg6mti6ndcmmjaymza5mdewnjqwmtc-rct-64f179ce0550d996929281.webp'),
 (50, 94, 'l21lzglhlxbhlzk5mjyvnc8zlzk5mjy0mzgwmdnfmi5kuec-mjaymza5mdewnjmzmdq-rct-64f17b05362ac686180758.webp'),
 (51, 94, 'l21lzglhlxbhlzk5mjyvnc8zlzk5mjy0mzgwmdnfms5kuec-mjaymza5mdewnjmzmdq-rct-64f17b0537e66960736076.webp'),
 (52, 94, 'l21lzglhlxbhlzk5mjyvnc8zlzk5mjy0mzgwmdnfnc5qcgc-mjaymza5mdewnjmzmdq-rct-64f17b053a744966218375.webp'),
 (53, 94, 'l21lzglhlxbhlzk5mjyvnc8zlzk5mjy0mzgwmdnfni5kuec-mjaymza5mdewnjmzmdq-rct-64f17b053c122800305817.webp'),
 (54, 94, 'l21lzglhlxbhlzk5mjyvnc8zlzk5mjy0mzgwmdnfns5kuec-mjaymza5mdewnjmzmdq-rct-64f17b053fafb356653021.webp'),
 (55, 95, 'l3jlc2l6zs9zm19zdgfuzgfyzf8zyte5nmmznze2ogi1yzc2zmzkogzlownimjg4mdhmymqxmmflzdgylmpwzz93awr0ad0xmjgwjmhlawdodd0xmjgwjm1vzgu9zml0jjiwmjmwodmxmja1ntiy-rct-64f17c694a2f3967765371.webp'),
-(56, 101, 'l29mzmljztcvbgfkcmvzxziwmdcxmdexmjgvy2f0ywxvzy9pbwfnzxmvchjfcc8xlzmvmy8xlzavmy83lzuvmtmzmtaznzvhlmpwzz9eqvrftufkptewlza2lziwmjmtmta6mju6ntimmjaymza5mdewnzqzntk-rct-64f17eac96fa0661692845.webp'),
-(57, 101, 'l29mzmljztcvbgfkcmvzxziwmdcxmdexmjgvy2f0ywxvzy9pbwfnzxmvchjfcc8xlzmvmy8xlzavmy83lzuvmtmzmtaznzvilmpwzz9eqvrftufkptewlza2lziwmjmtmta6mju6ntimmjaymza5mdewnzqzntk-rct-64f17f6eba7c7595946768.webp'),
-(58, 101, 'l29mzmljztcvbgfkcmvzxziwmdcxmdexmjgvy2f0ywxvzy9pbwfnzxmvchjfcc8xlzmvmy8xlzavmy83lzuvmtmzmtaznzvklmpwzz9eqvrftufkptewlza2lziwmjmtmta6mju6ntimmjaymza5mdewnzqzntk-rct-64f17f6ec0cd4859119053.webp'),
-(59, 101, 'l29mzmljztcvbgfkcmvzxziwmdcxmdexmjgvy2f0ywxvzy9pbwfnzxmvchjfcc8xlzmvmy8xlzavmy83lzuvmtmzmtaznzvnlmpwzz9eqvrftufkptewlza2lziwmjmtmta6mju6ntimmjaymza5mdewnzqzntk-rct-64f17f6ec7d5a609011185.webp'),
-(60, 101, 'l29mzmljztcvbgfkcmvzxziwmdcxmdexmjgvy2f0ywxvzy9pbwfnzxmvchjfcc8xlzmvmy8xlzavmy83lzuvmtmzmtaznzvrlmpwzz9eqvrftufkptewlza2lziwmjmtmta6mju6ntimmjaymza5mdewnzqzntk-rct-64f17f6ecb317851103328.webp');
+(61, 92, 'mmjaymza5mdewnjm2mjm-rct-64f176bd0f3e2923606246-660156d312514154419891.webp'),
+(62, 92, 'mjaymza5mdewnjm2mjm-rct-64f17733e3f28827169081-6601570819cc6104145646.webp'),
+(63, 92, 'mjaymza5mdewnjm2mjm-rct-64f17733e5c19048056215-6601576f127fa794589760.webp'),
+(64, 92, 'mmjaymza5mdewnjm2mjm-rct-64f17733e7943942021167-660157abe3e31230917430.webp'),
+(65, 92, 'mmjaymza5mdewnjm2mjm-rct-64f17733e9ca1381655183-660157da16f0d357042458.webp'),
+(66, 92, 'mmjaymza5mdewnjm2mjm-rct-64f17733eb976183103806-660158ebd73f9583333003.webp'),
+(67, 93, 'aymza5mdewnjqwmtc-rct-64f179ce0550d996929281-660159a71bd5c342847896.webp'),
+(68, 101, 'mmjaymza5mdewnzqzntk-rct-64f17eac96fa0661692845-66015cd26e125551030511.webp'),
+(69, 101, 'mmjaymza5mdewnzqzntk-rct-64f17f6eba7c7595946768-66015f3f2fe58600648342.webp'),
+(70, 101, 'mmjaymza5mdewnzqzntk-rct-64f17f6ec0cd4859119053-6601620c8cf09011552563.webp'),
+(71, 101, 'mmjaymza5mdewnzqzntk-rct-64f17f6ec7d5a609011185-66016259140c4863241480.webp'),
+(72, 101, 'mmjaymza5mdewnzqzntk-rct-64f17f6ecb317851103328-66016278e1e80653382654.webp');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `post`
+-- Table structure for table `post`
 --
 
-DROP TABLE IF EXISTS `post`;
-CREATE TABLE IF NOT EXISTS `post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `post` (
+  `id` int(11) NOT NULL,
   `news_id` int(11) NOT NULL,
-  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `text` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`),
-  KEY `IDX_5A8A6C8DB5A459A0` (`news_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `user_name` varchar(255) NOT NULL,
+  `text` longtext NOT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `post`
+-- Dumping data for table `post`
 --
 
 INSERT INTO `post` (`id`, `news_id`, `user_name`, `text`, `created_at`) VALUES
@@ -285,33 +268,31 @@ INSERT INTO `post` (`id`, `news_id`, `user_name`, `text`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `property`
+-- Table structure for table `property`
 --
 
-DROP TABLE IF EXISTS `property`;
-CREATE TABLE IF NOT EXISTS `property` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
+CREATE TABLE `property` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` longtext DEFAULT NULL,
   `surface` int(11) NOT NULL,
   `rooms` int(11) NOT NULL,
   `bedrooms` int(11) NOT NULL,
   `floor` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `heat` int(11) NOT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `postal_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sold` tinyint(1) NOT NULL DEFAULT '0',
+  `city` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `postal_code` varchar(255) NOT NULL,
+  `sold` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   `latitude` double NOT NULL,
-  `longitude` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `longitude` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `property`
+-- Dumping data for table `property`
 --
 
 INSERT INTO `property` (`id`, `title`, `description`, `surface`, `rooms`, `bedrooms`, `floor`, `price`, `heat`, `city`, `address`, `postal_code`, `sold`, `created_at`, `updated_at`, `latitude`, `longitude`) VALUES
@@ -330,20 +311,16 @@ INSERT INTO `property` (`id`, `title`, `description`, `surface`, `rooms`, `bedro
 -- --------------------------------------------------------
 
 --
--- Structure de la table `property_option`
+-- Table structure for table `property_option`
 --
 
-DROP TABLE IF EXISTS `property_option`;
-CREATE TABLE IF NOT EXISTS `property_option` (
+CREATE TABLE `property_option` (
   `property_id` int(11) NOT NULL,
-  `option_id` int(11) NOT NULL,
-  PRIMARY KEY (`property_id`,`option_id`),
-  KEY `IDX_24F16FCC549213EC` (`property_id`),
-  KEY `IDX_24F16FCCA7C41D6F` (`option_id`)
+  `option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `property_option`
+-- Dumping data for table `property_option`
 --
 
 INSERT INTO `property_option` (`property_id`, `option_id`) VALUES
@@ -378,42 +355,151 @@ INSERT INTO `property_option` (`property_id`, `option_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`) VALUES
-(26, 'admin', '$2y$13$WqsR0rKJBYB/OrjZZglxtOphc0S0LYWJmo8r9rl3YFD9cgw2lw2Ce');
+(1, 'admin', '$2y$13$WqsR0rKJBYB/OrjZZglxtOphc0S0LYWJmo8r9rl3YFD9cgw2lw2Ce');
 
 --
--- Contraintes pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Contraintes pour la table `picture`
+-- Indexes for table `doctrine_migration_versions`
+--
+ALTER TABLE `doctrine_migration_versions`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `option`
+--
+ALTER TABLE `option`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `picture`
+--
+ALTER TABLE `picture`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_16DB4F89549213EC` (`property_id`);
+
+--
+-- Indexes for table `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_5A8A6C8DB5A459A0` (`news_id`);
+
+--
+-- Indexes for table `property`
+--
+ALTER TABLE `property`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `property_option`
+--
+ALTER TABLE `property_option`
+  ADD PRIMARY KEY (`property_id`,`option_id`),
+  ADD KEY `IDX_24F16FCC549213EC` (`property_id`),
+  ADD KEY `IDX_24F16FCCA7C41D6F` (`option_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `option`
+--
+ALTER TABLE `option`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `picture`
+--
+ALTER TABLE `picture`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `property`
+--
+ALTER TABLE `property`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `picture`
 --
 ALTER TABLE `picture`
   ADD CONSTRAINT `FK_16DB4F89549213EC` FOREIGN KEY (`property_id`) REFERENCES `property` (`id`);
 
 --
--- Contraintes pour la table `post`
+-- Constraints for table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `FK_5A8A6C8DB5A459A0` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`);
 
 --
--- Contraintes pour la table `property_option`
+-- Constraints for table `property_option`
 --
 ALTER TABLE `property_option`
   ADD CONSTRAINT `FK_24F16FCC549213EC` FOREIGN KEY (`property_id`) REFERENCES `property` (`id`) ON DELETE CASCADE,
